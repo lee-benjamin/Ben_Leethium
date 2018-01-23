@@ -11,6 +11,14 @@ public class Get {
     static final int MIN_TWEETS = 3;
 
     public static void main(String[] args) throws TwitterException {
+        if (args.length > 0) {
+            System.out.println("Incorrect number of arguments. Usage: java Get");
+            return;
+        }
+        printHomeTimeline();
+    }
+
+    public static void printHomeTimeline() throws TwitterException {
         List<Status> statuses = twitterInstance.getHomeTimeline();
         if (statuses.size() < MIN_TWEETS) {
             System.out.println("Less than 3 tweets on Home Timeline. Aborting.");
