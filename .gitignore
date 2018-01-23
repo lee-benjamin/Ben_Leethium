@@ -1,2 +1,4 @@
 .idea
 *.iml
+out 
+twitter4j.properties
