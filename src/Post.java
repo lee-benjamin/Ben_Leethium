@@ -4,31 +4,28 @@ import twitter4j.TwitterFactory;
 
 public class Post {
 
-    static final Twitter twitterInstance = TwitterFactory.getSingleton();
-    static final int MAX_CHAR_LIMIT = 280;
+    //static final Twitter twitterInstance = TwitterFactory.getSingleton();
 
-    public static void main(String[] args) throws TwitterException {
+    public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("Incorrect number of arguments. Usage: java Post [tweet in quotes]");
             return;
         }
 
         String tweet = args[0];
-        updateStatus(tweet);
         System.out.println(tweet);
     }
 
     public static boolean validateTweet(String tweet) {
-        if (tweet.length() > MAX_CHAR_LIMIT) return false;
         return true;
     }
 
-    public static String updateStatus(String tweet) throws TwitterException {
+    public static String updateStatus(String tweet) {
         if (validateTweet(tweet)) {
-            twitterInstance.updateStatus(tweet);
+            //twitterInstance.updateStatus(tweet);
             return tweet;
         }
-        return "Malformed tweet, maximum character length is 280 characters.";
+        return "Malformed tweet.";
     }
 
 }
