@@ -19,8 +19,7 @@ public class Post {
     }
 
     public static boolean validateTweet(String tweet) {
-        if (tweet.length() > MAX_CHAR_LIMIT) return false;
-        return true;
+        return (tweet.length() > MAX_CHAR_LIMIT);
     }
 
     public static String updateStatus(String tweet) throws TwitterException {
