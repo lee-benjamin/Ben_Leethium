@@ -17,5 +17,5 @@ You can find these values in the settings page of your Twitter Application.
 
 Clone this repo into the directory of your choice and run `mvn package`.
 
-Now an uber jar has been generated in the `target` directory. To get your home timeline tweets, run `java -cp target/Ben_Leethium-XXX.jar Get`.
+Now an uber jar has been generated in the `target` directory. To get your home timeline tweets, run `java -jar target/Ben_Leethium-XXX.jar`
 
