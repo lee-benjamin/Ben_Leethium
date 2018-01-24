@@ -26,10 +26,10 @@ If you want to run the program outside the directory in which you have compiled 
 Create a Twitter Application at https://apps.twitter.com/app/new. You will need to create a `twitter4j.properties` file and place it inside `src/`, at the same level as the java files. It should look like this:
 
 ```
-oauth.consumerKey=""
-oauth.consumerSecret=""
-oauth.accessToken=""
-oauth.accessTokenSecret=""
+oauth.consumerKey=****
+oauth.consumerSecret=******
+oauth.accessToken=********
+oauth.accessTokenSecret=******
 ```
 You can find these values in the settings page of your Twitter Application.
 ## How to Run 

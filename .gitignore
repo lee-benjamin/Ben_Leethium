@@ -2,3 +2,4 @@
 *.iml
 out 
 twitter4j.properties
+.class

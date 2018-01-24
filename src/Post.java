@@ -14,12 +14,11 @@ public class Post {
         }
 
         String tweet = args[0];
-        updateStatus(tweet);
-        System.out.println(tweet);
+        System.out.println(updateStatus(tweet));
     }
 
     public static boolean validateTweet(String tweet) {
-        return (tweet.length() > MAX_CHAR_LIMIT);
+        return (tweet.length() < MAX_CHAR_LIMIT);
     }
 
     public static String updateStatus(String tweet) throws TwitterException {
