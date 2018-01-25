@@ -4,6 +4,7 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import com.benjamin.benleethium.resources.BenLeethiumResource;
+import com.benjamin.benleethium.health.TemplateHealthCheck;
 //import com.example.helloworld.resources.HelloWorldResource;
 //import com.example.helloworld.health.TemplateHealthCheck;
 
@@ -29,6 +30,10 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
                 configuration.getTemplate(),
                 configuration.getDefaultName()
                 );
+        environment.jersey().register(resource);
+        final TemplateHealthCheck healthCheck = 
+            new TemplateHealthCheck(configuration.getTemplate());
+        environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(resource);
     }
 
