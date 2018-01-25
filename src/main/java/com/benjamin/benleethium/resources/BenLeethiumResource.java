@@ -1,7 +1,11 @@
 package com.benjamin.benleethium.resources;
 
 import com.benjamin.benleethium.api.TwitterResponse;
+import com.benjamin.benleethium.Get;
+import com.benjamin.benleethium.Post;
 import com.codahale.metrics.annotation.Timed;
+
+import twitter4j.TwitterException;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,8 +31,9 @@ public class BenLeethiumResource {
 
     @GET
     @Timed
-    public TwitterResponse sayHello(@QueryParam("name") Optional<String> name) {
-        final String value = String.format(template, name.orElse(defaultName));
+    public TwitterResponse getHomeTimeline(@QueryParam("name") Optional<String> name) throws TwitterException {
+        //final String value = String.format(template, name.orElse(defaultName));
+        final String value = Get.main(new String[0]);
         // construct new Response object with TwitterResponse inside
         // return back Response
         // point of Response is so we can set the HTTP status code ourself

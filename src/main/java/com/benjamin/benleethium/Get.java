@@ -12,24 +12,25 @@ public class Get {
     static final Twitter twitterInstance = TwitterFactory.getSingleton();
     static final int MIN_TWEETS = 3;
 
-    public static void main(String[] args) throws TwitterException {
+    public static String main(String[] args) throws TwitterException {
         if (args.length > 0) {
-            System.out.println("Incorrect number of arguments. Usage: java Get");
-            return;
+            return "Incorrect number of arguments. Usage: java Get";
         }
-        printHomeTimeline();
+        return getHomeTimeline();
     }
 
-    public static void printHomeTimeline() throws TwitterException {
+    public static String getHomeTimeline() throws TwitterException {
         List<Status> statuses = twitterInstance.getHomeTimeline();
         if (statuses.size() < MIN_TWEETS) {
-            System.out.println("Less than 3 tweets on Home Timeline. Aborting.");
-            return;
+            // TODO http response code here
+            return "Less than 3 tweets on Home Timeline. Aborting.";
         }
 
+        StringBuilder sb = new StringBuilder();
         for (Status status : statuses) {
-            System.out.println(status.getUser().getName() + ": " +
-                               status.getText());
+            sb.append(status.getUser().getName() + ": " +
+                               status.getText() + "\n");
         } 
+        return sb.toString();
     }
 }
