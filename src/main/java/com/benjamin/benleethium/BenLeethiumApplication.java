@@ -3,6 +3,7 @@ package com.benjamin.benleethium;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import com.benjamin.benleethium.resources.BenLeethiumResource;
 //import com.example.helloworld.resources.HelloWorldResource;
 //import com.example.helloworld.health.TemplateHealthCheck;
 
@@ -24,7 +25,11 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
     @Override
     public void run(BenLeethiumConfiguration configuration,
                     Environment environment) {
-        // nothing to do yet
+        final BenLeethiumResource resource = new BenLeethiumResource(
+                configuration.getTemplate(),
+                configuration.getDefaultName()
+                );
+        environment.jersey().register(resource);
     }
 
 }
