@@ -3,17 +3,17 @@ package com.benjamin.benleethium.api;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
-public class Saying {
+public class TwitterResponse {
     private long id;
 
     @Length(max = 3)
     private String content;
 
-    public Saying() {
+    public TwitterResponse() {
         // Jackson deserialization
     }
 
-    public Saying(long id, String content) {
+    public TwitterResponse(long id, String content) {
         this.id = id;
         this.content = content;
     }
