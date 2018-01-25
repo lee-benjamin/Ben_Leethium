@@ -56,7 +56,7 @@
                <transformers>
                  <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                   <mainClass>com.benjamin.benleethium.Get</mainClass>
+                   <mainClass>com.benjamin.benleethium.BenLeethiumApplication</mainClass>
                  </transformer>
                </transformers>
              </configuration>
