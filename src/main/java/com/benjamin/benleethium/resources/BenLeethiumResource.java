@@ -37,8 +37,8 @@ public class BenLeethiumResource {
     @Path("/tweet")
     @Timed
     public Response updateStatus(@QueryParam("message") String message) throws TwitterException {
-        final String status = Post.updateStatus(message);
-        return Response.ok(new PostResponse(status), MediaType.APPLICATION_JSON).build();
+        //return Response.ok(new PostResponse(status), MediaType.APPLICATION_JSON).build();
+        return Post.updateStatus(message);
     }
 
 }

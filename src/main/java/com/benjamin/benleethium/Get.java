@@ -24,7 +24,9 @@ public class Get {
         List<Status> statuses = twitterInstance.getHomeTimeline();
         if (statuses.size() < MIN_TWEETS) {
             // LOG "Less than 3 tweets on Home Timeline. Aborting.";
-            return Response.status(Response.Status.FORBIDDEN).entity(new ErrorResponse("Less than " + MIN_TWEETS + " tweets on Home Timeline.")).build();
+            return Response.status(Response.Status.FORBIDDEN)
+                .entity(new ErrorResponse("Less than " + MIN_TWEETS + " tweets on Home Timeline."))
+                .build();
         }
 
         // TODO log this info at DEBUG level or something
