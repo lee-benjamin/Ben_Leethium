@@ -17,5 +17,25 @@ You can find these values in the settings page of your Twitter Application.
 
 Clone this repo into the directory of your choice and run `mvn package`.
 
-Now an uber jar has been generated in the `target` directory. To get your home timeline tweets, run `java -jar target/Ben_Leethium-XXX.jar`
+Now an fat/uber jar has been generated in the `target` directory. To start the server, run `java -jar target/Ben_Leethium-XXX.jar server benleethium.yml`
+
+### API Endpoints
+
+#### Get Homeline Tweets
+
+localhost:8080/api/1.0/twitter/timeline 
+
+#### Tweet a Message
+
+localhost:8080/api/1.0/twitter/tweet?message=YOUR TWEET HERE`
+
+#### Healthcheck
+
+localhost:8081/healthcheck
+
+#### Metrics
+
+http://localhost:8081/metrics
+
+
 
