@@ -26,7 +26,7 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
     @Override
     public void run(BenLeethiumConfiguration configuration,
                     Environment environment) {
-        final BenLeethiumResource resource = new BenLeethiumResource(configuration.getTemplate());
+        final BenLeethiumResource resource = new BenLeethiumResource();
         environment.jersey().register(resource);
 
         final TemplateHealthCheck healthCheck = 

@@ -21,11 +21,8 @@ import java.util.Optional;
 @Path("/api/1.0/twitter")
 @Produces(MediaType.APPLICATION_JSON)
 public class BenLeethiumResource {
-    private final String template;
 
-    public BenLeethiumResource(String template) {
-        this.template = template;
-    }
+    public BenLeethiumResource() {}
 
     @GET
     @Path("/timeline")
