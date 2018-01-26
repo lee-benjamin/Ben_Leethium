@@ -5,3 +5,4 @@ twitter4j.properties
 .class
 target
 dependency-reduced-pom.xml
+*.swp

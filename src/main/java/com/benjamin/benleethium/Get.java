@@ -11,7 +11,6 @@ import twitter4j.TwitterFactory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.MediaType;
 
 public class Get {
 
@@ -28,6 +27,6 @@ public class Get {
             homelineTweets.add(status.getUser().getName() + ": " +
                                status.getText());
         }
-        return Response.ok(new GetResponse(homelineTweets), MediaType.APPLICATION_JSON).build();
+        return Response.ok(new GetResponse(homelineTweets)).build();
     }
 }

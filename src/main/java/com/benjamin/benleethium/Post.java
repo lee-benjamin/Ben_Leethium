@@ -7,7 +7,6 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public class Post {
@@ -24,7 +23,7 @@ public class Post {
     public static Response updateStatus(String tweet) throws TwitterException {
         if (validateTweet(tweet)) {
             twitterInstance.updateStatus(tweet);
-            return Response.ok(new PostResponse(tweet), MediaType.APPLICATION_JSON).build();
+            return Response.ok(new PostResponse(tweet)).build();
         }
         return Response.status(Response.Status.BAD_REQUEST)
             .entity(new ErrorResponse("Malformed tweet. Ensure your tweet isn't empty or exceeds " + MAX_CHAR_LIMIT + " characters"))
