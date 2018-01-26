@@ -5,6 +5,7 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Get {
@@ -12,25 +13,32 @@ public class Get {
     static final Twitter twitterInstance = TwitterFactory.getSingleton();
     static final int MIN_TWEETS = 3;
 
-    public static String main(String[] args) throws TwitterException {
+    public static void main(String[] args) throws TwitterException {
         if (args.length > 0) {
-            return "Incorrect number of arguments. Usage: java Get";
+            System.out.println("Incorrect number of arguments. Usage: java Get");
         }
-        return getHomeTimeline();
+        List<String> homelineTweets = getHomeTimeline();
+        if (homelineTweets != null) {
+            for (String tweet : homelineTweets) {
+                // TODO change this to logging
+                System.out.println(tweet);
+            }
+        }
     }
 
-    public static String getHomeTimeline() throws TwitterException {
+    public static List<String> getHomeTimeline() throws TwitterException {
         List<Status> statuses = twitterInstance.getHomeTimeline();
         if (statuses.size() < MIN_TWEETS) {
             // TODO http response code here
-            return "Less than 3 tweets on Home Timeline. Aborting.";
+            // LOG "Less than 3 tweets on Home Timeline. Aborting.";
+            return null;
         }
 
-        StringBuilder sb = new StringBuilder();
+        List<String> homelineTweets = new ArrayList<>();
         for (Status status : statuses) {
-            sb.append(status.getUser().getName() + ": " +
-                               status.getText() + "\n");
+            homelineTweets.add(status.getUser().getName() + ": " +
+                               status.getText());
         } 
-        return sb.toString();
+        return homelineTweets;
     }
 }

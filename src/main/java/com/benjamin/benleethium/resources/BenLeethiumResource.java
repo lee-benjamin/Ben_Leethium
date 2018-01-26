@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.Optional;
 
@@ -33,11 +34,11 @@ public class BenLeethiumResource {
     @Timed
     public TwitterResponse getHomeTimeline(@QueryParam("name") Optional<String> name) throws TwitterException {
         //final String value = String.format(template, name.orElse(defaultName));
-        final String value = Get.main(new String[0]);
+        final List<String> homelineTweets = Get.getHomeTimeline();
         // construct new Response object with TwitterResponse inside
         // return back Response
         // point of Response is so we can set the HTTP status code ourself
         
-        return new TwitterResponse(counter.incrementAndGet(), value);
+        return new TwitterResponse(counter.incrementAndGet(), homelineTweets);
     }
 }
