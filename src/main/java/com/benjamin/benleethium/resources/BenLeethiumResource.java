@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.Optional;
 
-@Path("/hello-world")
+@Path("/api/1.0/twitter")
 @Produces(MediaType.APPLICATION_JSON)
 public class BenLeethiumResource {
     private final String template;
@@ -31,9 +31,9 @@ public class BenLeethiumResource {
     }
 
     @GET
+    @Path("/tweet")
     @Timed
-    public TwitterResponse getHomeTimeline(@QueryParam("name") Optional<String> name) throws TwitterException {
-        //final String value = String.format(template, name.orElse(defaultName));
+    public TwitterResponse getHomeTimeline() throws TwitterException {
         final List<String> homelineTweets = Get.getHomeTimeline();
         // construct new Response object with TwitterResponse inside
         // return back Response
@@ -41,4 +41,5 @@ public class BenLeethiumResource {
         
         return new TwitterResponse(counter.incrementAndGet(), homelineTweets);
     }
+
 }
