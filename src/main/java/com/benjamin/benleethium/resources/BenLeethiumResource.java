@@ -28,8 +28,6 @@ public class BenLeethiumResource {
     @Path("/timeline")
     @Timed
     public Response getHomeTimeline() throws TwitterException {
-        //final List<String> homelineTweets = Get.getHomeTimeline();
-        //return Response.ok(new GetResponse(homelineTweets), MediaType.APPLICATION_JSON).build();
         return Get.getHomeTimeline();
     }
 
@@ -37,7 +35,6 @@ public class BenLeethiumResource {
     @Path("/tweet")
     @Timed
     public Response updateStatus(@QueryParam("message") String message) throws TwitterException {
-        //return Response.ok(new PostResponse(status), MediaType.APPLICATION_JSON).build();
         return Post.updateStatus(message);
     }
 

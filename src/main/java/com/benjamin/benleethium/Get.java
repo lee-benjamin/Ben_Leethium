@@ -23,18 +23,18 @@ public class Get {
     public static Response getHomeTimeline() throws TwitterException {
         List<Status> statuses = twitterInstance.getHomeTimeline();
         if (statuses.size() < MIN_TWEETS) {
-            // LOG "Less than 3 tweets on Home Timeline. Aborting.";
+            // TODO log this
             return Response.status(Response.Status.FORBIDDEN)
                 .entity(new ErrorResponse("Less than " + MIN_TWEETS + " tweets on Home Timeline."))
                 .build();
         }
 
-        // TODO log this info at DEBUG level or something
+        // TODO log this info at DEBUG level
         List<String> homelineTweets = new ArrayList<>();
         for (Status status : statuses) {
             homelineTweets.add(status.getUser().getName() + ": " +
                                status.getText());
-        } 
+        }
         return Response.ok(new GetResponse(homelineTweets), MediaType.APPLICATION_JSON).build();
     }
 }
