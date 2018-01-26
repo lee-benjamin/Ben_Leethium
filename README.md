@@ -27,7 +27,7 @@ http://localhost:8080/api/1.0/twitter/timeline
 
 #### Tweet a Message
 
-http://localhost:8080/api/1.0/twitter/tweet?message=YOUR TWEET HERE
+http://localhost:8080/api/1.0/twitter/tweet?message=YOUR-TWEET-HERE
 
 #### Healthcheck
 
