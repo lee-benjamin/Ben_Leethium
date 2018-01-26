@@ -28,12 +28,9 @@ public class BenLeethiumResource {
     @Path("/timeline")
     @Timed
     public Response getHomeTimeline() throws TwitterException {
-        final List<String> homelineTweets = Get.getHomeTimeline();
-        // construct new Response object with TwitterResponse inside
-        // return back Response
-        // point of Response is so we can set the HTTP status code ourself
-        //return new GetResponse(homelineTweets);
-        return Response.ok(new GetResponse(homelineTweets), MediaType.APPLICATION_JSON).build();
+        //final List<String> homelineTweets = Get.getHomeTimeline();
+        //return Response.ok(new GetResponse(homelineTweets), MediaType.APPLICATION_JSON).build();
+        return Get.getHomeTimeline();
     }
 
     @POST
