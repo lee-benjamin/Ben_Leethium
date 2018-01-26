@@ -16,18 +16,11 @@ import javax.ws.rs.core.MediaType;
 public class Get {
 
     static final Twitter twitterInstance = TwitterFactory.getSingleton();
-    static final int MIN_TWEETS = 3;
 
     public static void main(String[] args) throws TwitterException {}
 
     public static Response getHomeTimeline() throws TwitterException {
         List<Status> statuses = twitterInstance.getHomeTimeline();
-        if (statuses.size() < MIN_TWEETS) {
-            // TODO log this
-            return Response.status(Response.Status.FORBIDDEN)
-                .entity(new ErrorResponse("Less than " + MIN_TWEETS + " tweets on Home Timeline."))
-                .build();
-        }
 
         // TODO log this info at DEBUG level
         List<String> homelineTweets = new ArrayList<>();

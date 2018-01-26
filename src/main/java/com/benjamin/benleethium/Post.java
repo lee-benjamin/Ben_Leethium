@@ -26,7 +26,7 @@ public class Post {
             twitterInstance.updateStatus(tweet);
             return Response.ok(new PostResponse(tweet), MediaType.APPLICATION_JSON).build();
         }
-        return Response.status(Response.Status.FORBIDDEN)
+        return Response.status(Response.Status.BAD_REQUEST)
             .entity(new ErrorResponse("Malformed tweet. Ensure your tweet isn't empty or exceeds " + MAX_CHAR_LIMIT + " characters"))
             .build();
     }
