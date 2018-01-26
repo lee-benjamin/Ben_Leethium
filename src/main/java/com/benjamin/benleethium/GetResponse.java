@@ -1,28 +1,19 @@
 package com.benjamin.benleethium.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
-public class TwitterResponse {
-    private long id;
+public class GetResponse {
 
-    @Length(max = 3)
     private List<String> content;
 
-    public TwitterResponse() {
+    public GetResponse() {
         // Jackson deserialization
     }
 
-    public TwitterResponse(long id, List<String> content) {
-        this.id = id;
+    public GetResponse(List<String> content) {
         this.content = content;
-    }
-
-    @JsonProperty
-    public long getId() {
-        return id;
     }
 
     @JsonProperty

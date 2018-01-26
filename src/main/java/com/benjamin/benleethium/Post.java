@@ -20,7 +20,7 @@ public class Post {
     }
 
     public static boolean validateTweet(String tweet) {
-        return (tweet.length() < MAX_CHAR_LIMIT);
+        return (tweet != null && tweet.length() < MAX_CHAR_LIMIT);
     }
 
     public static String updateStatus(String tweet) throws TwitterException {

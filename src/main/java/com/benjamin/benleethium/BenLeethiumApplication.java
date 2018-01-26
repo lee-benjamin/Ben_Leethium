@@ -15,7 +15,7 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
 
     @Override
     public String getName() {
-        return "hello-world";
+        return "BenLeethium";
     }
 
     @Override
@@ -26,11 +26,9 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
     @Override
     public void run(BenLeethiumConfiguration configuration,
                     Environment environment) {
-        final BenLeethiumResource resource = new BenLeethiumResource(
-                configuration.getTemplate(),
-                configuration.getDefaultName()
-                );
+        final BenLeethiumResource resource = new BenLeethiumResource(configuration.getTemplate());
         environment.jersey().register(resource);
+
         final TemplateHealthCheck healthCheck = 
             new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
