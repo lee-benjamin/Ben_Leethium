@@ -27,21 +27,21 @@ public class BenLeethiumResource {
     @GET
     @Path("/timeline")
     @Timed
-    public GetResponse getHomeTimeline() throws TwitterException {
+    public Response getHomeTimeline() throws TwitterException {
         final List<String> homelineTweets = Get.getHomeTimeline();
         // construct new Response object with TwitterResponse inside
         // return back Response
         // point of Response is so we can set the HTTP status code ourself
-        
-        return new GetResponse(homelineTweets);
+        //return new GetResponse(homelineTweets);
+        return Response.ok(new GetResponse(homelineTweets), MediaType.APPLICATION_JSON).build();
     }
 
     @POST
     @Path("/tweet")
     @Timed
-    public PostResponse updateStatus(@QueryParam("message") String message) throws TwitterException {
+    public Response updateStatus(@QueryParam("message") String message) throws TwitterException {
         final String status = Post.updateStatus(message);
-        return new PostResponse(status);
+        return Response.ok(new PostResponse(status), MediaType.APPLICATION_JSON).build();
     }
 
 }
