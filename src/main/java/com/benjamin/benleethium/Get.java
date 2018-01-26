@@ -19,14 +19,20 @@ public class Get {
     public static void main(String[] args) throws TwitterException {}
 
     public static Response getHomeTimeline() throws TwitterException {
-        List<Status> statuses = twitterInstance.getHomeTimeline();
+        try {
+            List<Status> statuses = twitterInstance.getHomeTimeline();
 
-        // TODO log this info at DEBUG level
-        List<String> homelineTweets = new ArrayList<>();
-        for (Status status : statuses) {
-            homelineTweets.add(status.getUser().getName() + ": " +
-                               status.getText());
+            // TODO log this info at DEBUG level
+            List<String> homelineTweets = new ArrayList<>();
+            for (Status status : statuses) {
+                homelineTweets.add(status.getUser().getName() + ": " +
+                                   status.getText());
+            }
+            return Response.ok(new GetResponse(homelineTweets)).build();
+        } catch (TwitterException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity(new ErrorResponse("There is a problem with the server. Please try again later"))
+                .build();
         }
-        return Response.ok(new GetResponse(homelineTweets)).build();
     }
 }
