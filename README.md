@@ -23,15 +23,15 @@ Now an fat/uber jar has been generated in the `target` directory. To start the s
 
 #### Get Homeline Tweets
 
-localhost:8080/api/1.0/twitter/timeline 
+http://localhost:8080/api/1.0/twitter/timeline 
 
 #### Tweet a Message
 
-localhost:8080/api/1.0/twitter/tweet?message=YOUR TWEET HERE`
+http://localhost:8080/api/1.0/twitter/tweet?message=YOUR TWEET HERE
 
 #### Healthcheck
 
-localhost:8081/healthcheck
+http://localhost:8081/healthcheck
 
 #### Metrics
 
