@@ -5,6 +5,8 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import com.benjamin.benleethium.resources.BenLeethiumResource;
 import com.benjamin.benleethium.health.TemplateHealthCheck;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class BenLeethiumApplication extends Application<BenLeethiumConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -18,7 +20,12 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
 
     @Override
     public void initialize(Bootstrap<BenLeethiumConfiguration> bootstrap) {
-        // nothing to do yet
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setOAuthConsumerKey(Twitter4jConfiguration.CONSUMER_KEY)
+            .setOAuthConsumerSecret(Twitter4jConfiguration.CONSUMER_SECRET)
+            .setOAuthAccessToken(Twitter4jConfiguration.ACCESS_TOKEN)
+            .setOAuthAccessTokenSecret(Twitter4jConfiguration.ACCESS_TOKEN_SECRET);
+        TwitterFactory tf = new TwitterFactory(cb.build());
     }
 
     @Override
