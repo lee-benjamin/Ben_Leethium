@@ -6,10 +6,6 @@ public class PostResponse {
 
     private String content;
 
-    public PostResponse() {
-        // Jackson deserialization
-    }
-
     public PostResponse(String content) {
         this.content = content;
     }

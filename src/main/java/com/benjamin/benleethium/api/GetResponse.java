@@ -8,10 +8,6 @@ public class GetResponse {
 
     private List<String> content;
 
-    public GetResponse() {
-        // Jackson deserialization
-    }
-
     public GetResponse(List<String> content) {
         this.content = content;
     }

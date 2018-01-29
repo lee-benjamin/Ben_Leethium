@@ -6,10 +6,6 @@ public class ErrorResponse {
 
     private String message;
 
-    public ErrorResponse() {
-        // Jackson deserialization
-    }
-
     public ErrorResponse(String message) {
         this.message = message;
     }
