@@ -1,5 +1,7 @@
 package com.benjamin.benleethium;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.dropwizard.Configuration;
 
 import twitter4j.conf.ConfigurationBuilder;
@@ -17,8 +19,7 @@ public class BenLeethiumConfiguration extends Configuration {
     @NotNull
     private Twitter4jConfiguration twitter4jConf = new Twitter4jConfiguration();
 
-
-
+    @JsonProperty("twitter4jconf")
     public Twitter4jConfiguration getTwitter4jConfiguration() {
         return twitter4jConf;
     }

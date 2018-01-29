@@ -34,8 +34,7 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
         final BenLeethiumResource resource = new BenLeethiumResource();
         environment.jersey().register(resource);
 
-        final TemplateHealthCheck healthCheck = 
-            new TemplateHealthCheck();
+        final TemplateHealthCheck healthCheck = new TemplateHealthCheck();
         environment.healthChecks().register("Server Up", healthCheck);
     } 
 }
