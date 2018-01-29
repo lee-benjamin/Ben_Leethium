@@ -1,10 +1,6 @@
 package com.benjamin.benleethium;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.dropwizard.Configuration;
-
-import twitter4j.conf.ConfigurationBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

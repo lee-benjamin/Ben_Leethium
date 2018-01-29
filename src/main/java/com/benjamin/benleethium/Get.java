@@ -6,7 +6,6 @@ import com.benjamin.benleethium.api.ErrorResponse;
 import twitter4j.Twitter;
 import twitter4j.Status;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +13,11 @@ import javax.ws.rs.core.Response;
 
 public class Get {
 
-    static final Twitter twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
+    private static final Twitter twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
 
-    public static void main(String[] args) throws TwitterException {}
+    public static void main(String[] args) {}
 
-    public static Response getHomeTimeline() throws TwitterException {
+    public static Response getHomeTimeline() {
         try {
             List<Status> statuses = twitterInstance.getHomeTimeline();
 

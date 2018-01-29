@@ -5,14 +5,13 @@ import com.benjamin.benleethium.api.ErrorResponse;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 
 import javax.ws.rs.core.Response;
 
 public class Post {
 
-    static final Twitter twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
-    static final int MAX_CHAR_LIMIT = 280;
+    private static final Twitter twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
+    private static final int MAX_CHAR_LIMIT = 280;
 
     public static void main(String[] args) {}
 
