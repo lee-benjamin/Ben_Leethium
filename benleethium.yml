@@ -1,6 +1,6 @@
-twitter4jConf:
-    CONSUMER_KEY: VnqN2uvSOO1yNWz0KunJcUvGG
-    CONSUMER_SECRET: R908hb0SmcOXinoXVk1vOI2yLBhvJuyuxcdJCTIJgzqGVWgGHS
-    ACCESS_TOKEN: 955522068149342208-VmvMGRDXgdxJCnr77fxRkWSUCzSuedE
-    ACCESS_TOKEN_SECRET: 4yQm0AHLpdAwcgyjgdTEw1OsxCrJ4a33voddlVaGdzOUP
+twitter4jConfiguration:
+    consumerKey: VnqN2uvSOO1yNWz0KunJcUvGG
+    consumerSecret: R908hb0SmcOXinoXVk1vOI2yLBhvJuyuxcdJCTIJgzqGVWgGHS
+    accessToken: 955522068149342208-VmvMGRDXgdxJCnr77fxRkWSUCzSuedE
+    accessTokenSecret: 4yQm0AHLpdAwcgyjgdTEw1OsxCrJ4a33voddlVaGdzOUP
 

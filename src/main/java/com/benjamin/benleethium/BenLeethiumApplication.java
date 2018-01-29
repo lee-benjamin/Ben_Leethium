@@ -19,22 +19,23 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
     }
 
     @Override
-    public void initialize(Bootstrap<BenLeethiumConfiguration> bootstrap) {
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setOAuthConsumerKey(Twitter4jConfiguration.CONSUMER_KEY)
-            .setOAuthConsumerSecret(Twitter4jConfiguration.CONSUMER_SECRET)
-            .setOAuthAccessToken(Twitter4jConfiguration.ACCESS_TOKEN)
-            .setOAuthAccessTokenSecret(Twitter4jConfiguration.ACCESS_TOKEN_SECRET);
-        TwitterFactory tf = new TwitterFactory(cb.build());
-    }
+    public void initialize(Bootstrap<BenLeethiumConfiguration> bootstrap) {}
 
     @Override
     public void run(BenLeethiumConfiguration configuration,
                     Environment environment) {
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        Twitter4jConfiguration twitter4jConf = configuration.getTwitter4jConfiguration();
+        cb.setOAuthConsumerKey(twitter4jConf.getConsumerKey())
+            .setOAuthConsumerSecret(twitter4jConf.getConsumerSecret())
+            .setOAuthAccessToken(twitter4jConf.getAccessToken())
+            .setOAuthAccessTokenSecret(twitter4jConf.getAccessTokenSecret());
+        TwitterFactory tf = new TwitterFactory(cb.build());
+
         final BenLeethiumResource resource = new BenLeethiumResource();
         environment.jersey().register(resource);
 
         final TemplateHealthCheck healthCheck = new TemplateHealthCheck();
         environment.healthChecks().register("Server Up", healthCheck);
-    } 
+    }
 }

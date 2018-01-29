@@ -6,21 +6,34 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Twitter4jConfiguration {
 
     @NotEmpty
-    @JsonProperty
-    static String CONSUMER_KEY;
+    private String consumerKey;
 
     @NotEmpty
     @JsonProperty
-    static String CONSUMER_SECRET;
+    private String consumerSecret;
 
     @NotEmpty
     @JsonProperty
-    static String ACCESS_TOKEN;
+    private String accessToken;
 
     @NotEmpty
     @JsonProperty
-    static String ACCESS_TOKEN_SECRET;
-    
+    private String accessTokenSecret;
+
+    @JsonProperty
+    public String getConsumerKey() {
+        return consumerKey;
+    }
+
+    public String getConsumerSecret() {
+        return consumerSecret;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public String getAccessTokenSecret() {
+        return accessToken;
+    }
 }
-
-
