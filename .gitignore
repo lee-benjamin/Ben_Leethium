@@ -6,4 +6,4 @@ twitter4j.properties
 target
 dependency-reduced-pom.xml
 *.swp
-*.yml
+benleethium.yml
