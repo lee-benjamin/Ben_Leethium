@@ -1,34 +1,38 @@
 package com.benjamin.benleethium;
 
+import com.benjamin.benleethium.api.PostResponse;
+import com.benjamin.benleethium.api.ErrorResponse;
+
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+
+import javax.ws.rs.core.Response;
 
 public class Post {
 
-    static final Twitter twitterInstance = TwitterFactory.getSingleton();
-    static final int MAX_CHAR_LIMIT = 280;
+    private static final Twitter twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
+    private static final int MAX_CHAR_LIMIT = 280;
 
-    public static void main(String[] args) throws TwitterException {
-        if (args.length != 1) {
-            System.out.println("Incorrect number of arguments. Usage: java Post [tweet in quotes]");
-            return;
-        }
-
-        String tweet = args[0];
-        System.out.println(updateStatus(tweet));
-    }
+    public static void main(String[] args) {}
 
     public static boolean validateTweet(String tweet) {
-        return (tweet.length() < MAX_CHAR_LIMIT);
+        return (tweet != null && tweet.length() < MAX_CHAR_LIMIT);
     }
 
-    public static String updateStatus(String tweet) throws TwitterException {
-        if (validateTweet(tweet)) {
-            twitterInstance.updateStatus(tweet);
-            return tweet;
+    public static Response updateStatus(String tweet) {
+        try {
+            if (validateTweet(tweet)) {
+                twitterInstance.updateStatus(tweet);
+                return Response.ok(new PostResponse(tweet)).build();
+            }
+            return Response.status(Response.Status.BAD_REQUEST)
+                .entity(new ErrorResponse("Malformed tweet. Ensure your tweet isn't empty or exceeds " + MAX_CHAR_LIMIT + " characters"))
+                .build();
+        } catch (TwitterException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity(new ErrorResponse("There is a problem with the server. Please try again later"))
+                .build();
         }
-        return "Malformed tweet, maximum character length is 280 characters.";
     }
 
 }
