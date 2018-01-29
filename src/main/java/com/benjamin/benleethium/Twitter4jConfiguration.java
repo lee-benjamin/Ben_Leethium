@@ -34,6 +34,6 @@ public class Twitter4jConfiguration {
     }
 
     public String getAccessTokenSecret() {
-        return accessToken;
+        return accessTokenSecret;
     }
 }

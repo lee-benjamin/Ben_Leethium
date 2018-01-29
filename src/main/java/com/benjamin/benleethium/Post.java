@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 
 public class Post {
 
-    static final Twitter twitterInstance = TwitterFactory.getSingleton();
+    static final Twitter twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
     static final int MAX_CHAR_LIMIT = 280;
 
     public static void main(String[] args) {}

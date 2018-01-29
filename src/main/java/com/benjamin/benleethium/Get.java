@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 
 public class Get {
 
-    static final Twitter twitterInstance = TwitterFactory.getSingleton();
+    static final Twitter twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
 
     public static void main(String[] args) throws TwitterException {}
 

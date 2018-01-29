@@ -9,6 +9,8 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class BenLeethiumApplication extends Application<BenLeethiumConfiguration> {
+    public static TwitterFactory twitterFactory;
+
     public static void main(String[] args) throws Exception {
         new BenLeethiumApplication().run(args);
     }
@@ -30,7 +32,7 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
             .setOAuthConsumerSecret(twitter4jConf.getConsumerSecret())
             .setOAuthAccessToken(twitter4jConf.getAccessToken())
             .setOAuthAccessTokenSecret(twitter4jConf.getAccessTokenSecret());
-        TwitterFactory tf = new TwitterFactory(cb.build());
+        twitterFactory = new TwitterFactory(cb.build());
 
         final BenLeethiumResource resource = new BenLeethiumResource();
         environment.jersey().register(resource);
