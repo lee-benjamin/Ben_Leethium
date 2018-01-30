@@ -39,4 +39,10 @@ http://localhost:8081/healthcheck
 http://localhost:8081/metrics
 
 
+#### Logging
 
+Should you want to change the logging level refer to the following example and replace the level with whatever you desire.
+
+`java -Ddw.logging.level=DEBUG -jar target/your-jar server benleethium.yml`
+
+It defaults to INFO.
