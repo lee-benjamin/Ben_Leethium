@@ -1,7 +1,8 @@
-package com.benjamin.benleethium;
+package com.benjamin.benleethium.services;
 
 import com.benjamin.benleethium.api.PostResponse;
 import com.benjamin.benleethium.api.ErrorResponse;
+import com.benjamin.benleethium.BenLeethiumApplication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,21 +14,26 @@ import javax.ws.rs.core.Response;
 
 public class Post {
 
-    private static final Twitter twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
+    private static final Post INSTANCE = new Post();
+    private final Twitter twitterInstance;
     private static final int MAX_CHAR_LIMIT = 280;
 
-    public static void main(String[] args) {}
+    private Post() {
+        twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
+    }
 
-    public static boolean validateTweet(String tweet) {
+    public static Post getInstance() {
+        return INSTANCE;
+    }
+
+    public boolean validateTweet(String tweet) {
         return (tweet != null && tweet.length() < MAX_CHAR_LIMIT);
     }
 
-    public static Response updateStatus(String tweet) {
-        final Logger logger = LoggerFactory.getLogger(Post.class);
+    public Response updateStatus(String tweet) {
         try {
             logger.debug("Validating tweet before attempting to post.");
-            if (validateTweet(tweet)) {
-                logger.debug("Tweet validated, posting...");
+            if (this.validateTweet(tweet)) {
                 twitterInstance.updateStatus(tweet);
                 logger.debug("Successfully posted tweet: " + tweet);
                 return Response.ok(new PostResponse(tweet)).build();
@@ -43,5 +49,4 @@ public class Post {
                 .build();
         }
     }
-
 }

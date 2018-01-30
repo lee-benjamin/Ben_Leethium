@@ -1,4 +1,4 @@
-package com.benjamin.benleethium;
+package com.benjamin.benleethium.services;
 
 import com.benjamin.benleethium.api.GetResponse;
 import com.benjamin.benleethium.api.ErrorResponse;
