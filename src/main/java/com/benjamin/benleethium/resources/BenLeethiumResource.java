@@ -1,7 +1,7 @@
 package com.benjamin.benleethium.resources;
 
-import com.benjamin.benleethium.Get;
-import com.benjamin.benleethium.Post;
+import com.benjamin.benleethium.services.Get;
+import com.benjamin.benleethium.services.Post;
 import com.codahale.metrics.annotation.Timed;
 
 
@@ -24,7 +24,7 @@ public class BenLeethiumResource {
     @Path("/timeline")
     @Timed
     public Response getHomeTimeline() {
-        return Get.getHomeTimeline();
+        return Get.getInstance().getHomeTimeline();
     }
 
     @POST
@@ -32,7 +32,7 @@ public class BenLeethiumResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Timed
     public Response updateStatus(@FormParam("message") String message) {
-        return Post.updateStatus(message);
+        return Post.getInstance().updateStatus(message);
     }
 
 }

@@ -17,6 +17,7 @@ public class Post {
     private static final Post INSTANCE = new Post();
     private final Twitter twitterInstance;
     private static final int MAX_CHAR_LIMIT = 280;
+    final Logger logger = LoggerFactory.getLogger(Post.class);
 
     private Post() {
         twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();

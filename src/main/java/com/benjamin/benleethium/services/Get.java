@@ -2,6 +2,7 @@ package com.benjamin.benleethium.services;
 
 import com.benjamin.benleethium.api.GetResponse;
 import com.benjamin.benleethium.api.ErrorResponse;
+import com.benjamin.benleethium.BenLeethiumApplication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,12 +17,19 @@ import javax.ws.rs.core.Response;
 
 public class Get {
 
-    private static final Twitter twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
+    private static final Get INSTANCE = new Get();
+    private final Twitter twitterInstance;
+    final Logger logger = LoggerFactory.getLogger(Get.class);
 
-    public static void main(String[] args) {}
+    private Get() {
+        twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
+    }
 
-    public static Response getHomeTimeline() {
-        final Logger logger = LoggerFactory.getLogger(Get.class);
+    public static Get getInstance() {
+        return INSTANCE;
+    }
+
+    public Response getHomeTimeline() {
         try {
             logger.debug("Retrieving home timeline...");
             List<Status> statuses = twitterInstance.getHomeTimeline();
