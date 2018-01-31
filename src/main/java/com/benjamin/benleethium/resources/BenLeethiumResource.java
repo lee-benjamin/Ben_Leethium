@@ -1,6 +1,6 @@
 package com.benjamin.benleethium.resources;
 
-import com.benjamin.benleethium.models.Message;
+import com.benjamin.benleethium.models.Status;
 import com.benjamin.benleethium.api.ErrorResponse;
 import com.benjamin.benleethium.services.TwitterService;
 import com.codahale.metrics.annotation.Timed;
@@ -36,7 +36,7 @@ public class BenLeethiumResource {
     @Timed
     public Response getHomeTimeline() {
         try {
-            List<Message> homelineTweets = twitterInstance.getHomeTimeline();
+            List<Status> homelineTweets = twitterInstance.getHomeTimeline();
             return Response.ok(homelineTweets).build();
         } catch (TwitterException e) {
             logger.error("Unable to fetch home timeline.", e);
@@ -52,8 +52,8 @@ public class BenLeethiumResource {
     @Timed
     public Response updateStatus(@FormParam("message") String message) {
         try {
-            Message response = twitterInstance.getInstance().updateStatus(message);
-            return Response.ok(response).build();
+            Status status = twitterInstance.getInstance().updateStatus(message);
+            return Response.ok(status).build();
         } catch (RuntimeException e) {
             logger.debug(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST)

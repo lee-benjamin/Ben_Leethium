@@ -2,23 +2,21 @@ package com.benjamin.benleethium.models;
 
 import java.util.Date;
 
-import twitter4j.Status;
-
-public class Message {
+public class Status {
 
     private String text;
     private Date createdAt;
     private User user;
 
-    public Message() {}
+    public Status() {}
 
-    public Message(String text, Date createdAt, User user) {
+    public Status(String text, Date createdAt, User user) {
         this.text = text;
         this.createdAt = createdAt;
         this.user = user;
     }
 
-    public Message(Status status) {
+    public Status(twitter4j.Status status) {
         this.text = status.getText();
         this.createdAt = status.getCreatedAt();
         this.setUser(status.getUser());

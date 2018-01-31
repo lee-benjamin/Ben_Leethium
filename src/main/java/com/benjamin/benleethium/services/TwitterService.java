@@ -1,13 +1,12 @@
 package com.benjamin.benleethium.services;
 
 import com.benjamin.benleethium.BenLeethiumApplication;
-import com.benjamin.benleethium.models.Message;
+import com.benjamin.benleethium.models.Status;
 import com.benjamin.benleethium.models.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
@@ -37,27 +36,27 @@ public class TwitterService {
         return (tweet != null && tweet.length() < MAX_CHAR_LIMIT);
     }
 
-    public Message updateStatus(String tweet) throws TwitterException, RuntimeException {
+    public Status updateStatus(String tweet) throws TwitterException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
         if (this.validateTweet(tweet)) {
-            Message message;
+            Status response;
             logger.debug("Tweet valid. Posting tweet...");
-            Status status = twitterInstance.updateStatus(tweet);
-            message = new Message(status);
+            twitter4j.Status status = twitterInstance.updateStatus(tweet);
+            response = new Status(status);
             logger.debug("Successfully posted tweet.");
-            return message;
+            return response;
         }
         logger.debug("Tweet NOT validated, malformed tweet body.");
         throw new RuntimeException("Tweet body is malformed. Update status aborted.");
     }
 
-    public List<Message> getHomeTimeline() throws TwitterException {
+    public List<Status> getHomeTimeline() throws TwitterException {
         logger.debug("Retrieving home timeline...");
-        List<Status> statuses = twitterInstance.getHomeTimeline();
+        List<twitter4j.Status> statuses = twitterInstance.getHomeTimeline();
 
-        List<Message> homelineTweets = new ArrayList<>();
-        for (Status status : statuses) {
-            homelineTweets.add(new Message(status));
+        List<Status> homelineTweets = new ArrayList<>();
+        for (twitter4j.Status status : statuses) {
+            homelineTweets.add(new Status(status));
         }
         logger.debug("Got home timeline.");
         return homelineTweets;
