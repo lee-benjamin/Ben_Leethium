@@ -37,7 +37,7 @@ public class BenLeethiumResource {
     public Response getHomeTimeline() {
         try {
             List<Message> homelineTweets = twitterInstance.getHomeTimeline();
-            return Response.ok(homelineTweets ).build();
+            return Response.ok(homelineTweets).build();
         } catch (TwitterException e) {
             logger.error("Unable to fetch home timeline.", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -50,10 +50,10 @@ public class BenLeethiumResource {
     @Path("/tweet")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Timed
-    public Response updateStatus(@FormParam("message") String status) {
+    public Response updateStatus(@FormParam("message") String message) {
         try {
-            Message message = twitterInstance.getInstance().updateStatus(status);
-            return Response.ok(message).build();
+            Message response = twitterInstance.getInstance().updateStatus(message);
+            return Response.ok(response).build();
         } catch (RuntimeException e) {
             logger.debug(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST)

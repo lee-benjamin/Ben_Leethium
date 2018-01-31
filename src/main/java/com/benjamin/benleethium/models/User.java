@@ -30,8 +30,8 @@ public class User {
         return this.screenName;
     }
 
-    public void setScreenName(String name) {
-        this.screenName = name;
+    public void setScreenName(String screenName) {
+        this.screenName = screenName;
     }
 
     public String getProfileImageURL() {
