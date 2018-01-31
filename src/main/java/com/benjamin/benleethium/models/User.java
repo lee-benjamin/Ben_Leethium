@@ -2,7 +2,6 @@ package com.benjamin.benleethium.models;
 
 public class User {
 
-
     private String name;
     private String screenName;
     private String profileImageURL;
@@ -23,11 +22,23 @@ public class User {
         return this.name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getScreenName() {
         return this.screenName;
     }
 
+    public void setScreenName(String name) {
+        this.screenName = name;
+    }
+
     public String getProfileImageURL() {
         return this.profileImageURL;
+    }
+
+    public void setProfileImageURL(String profileImageURL) {
+        this.profileImageURL = profileImageURL;
     }
 }

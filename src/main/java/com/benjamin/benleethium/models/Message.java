@@ -28,27 +28,23 @@ public class Message {
         return this.text;
     }
 
-    public Date getCreatedAt() {
-        return this.createdAt;
-    }
-
-    public User getUser() {
-        return this.user;
-    }
-    
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Date getCreatedAt() {
+        return this.createdAt;
     }
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public void setUser(twitter4j.User user) {
-        this.user = new User(user);
+    public User getUser() {
+        return this.user;
     }
 
-    public String toString() {
-        return "Message: [" + this.text + ", " + this.createdAt + ", " + this.user + "]";
+    public void setUser(twitter4j.User user) {
+        this.user = new User(user);
     }
 }
