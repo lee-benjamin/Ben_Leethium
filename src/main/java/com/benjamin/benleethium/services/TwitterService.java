@@ -14,20 +14,21 @@ import java.util.List;
 
 
 public class TwitterService {
-    private static TwitterService INSTANCE;
-    private final Twitter twitterInstance;
+
     public static final int MAX_CHAR_LIMIT = 280;
-    final Logger logger = LoggerFactory.getLogger(TwitterService.class);
+    private final Logger logger = LoggerFactory.getLogger(TwitterService.class);
+    private final Twitter twitterInstance;
+    private static TwitterService twitterServiceInstance;
 
     private TwitterService() {
         twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
     }
 
     public static TwitterService getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new TwitterService();
+        if (twitterServiceInstance == null) {
+            twitterServiceInstance = new TwitterService();
         }
-        return INSTANCE;
+        return twitterServiceInstance;
     }
 
     public boolean validateTweet(String tweet) {
