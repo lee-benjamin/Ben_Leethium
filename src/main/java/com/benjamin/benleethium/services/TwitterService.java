@@ -1,6 +1,8 @@
 package com.benjamin.benleethium.services;
 
 import com.benjamin.benleethium.BenLeethiumApplication;
+import com.benjamin.benleethium.models.Message;
+import com.benjamin.benleethium.models.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,13 +37,15 @@ public class TwitterService {
         return (tweet != null && tweet.length() < MAX_CHAR_LIMIT);
     }
 
-    public String updateStatus(String tweet) throws TwitterException, RuntimeException {
+    public Message updateStatus(String tweet) throws TwitterException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
         if (this.validateTweet(tweet)) {
+            Message message;
             logger.debug("Tweet valid. Posting tweet...");
-            twitterInstance.updateStatus(tweet);
-            logger.debug("Successfully posted tweet: " + tweet);
-            return tweet;
+            Status status = twitterInstance.updateStatus(tweet);
+            message = new Message(status);
+            logger.debug("Successfully posted tweet. " + message);
+            return message;
         }
         logger.debug("Tweet NOT validated, malformed tweet body.");
         throw new RuntimeException("Tweet body is malformed. Update status aborted.");

@@ -1,7 +1,8 @@
 package com.benjamin.benleethium.resources;
 
-import com.benjamin.benleethium.api.PostResponse;
 import com.benjamin.benleethium.api.GetResponse;
+import com.benjamin.benleethium.models.Message;
+import com.benjamin.benleethium.models.User;
 import com.benjamin.benleethium.api.ErrorResponse;
 import com.benjamin.benleethium.services.TwitterService;
 import com.codahale.metrics.annotation.Timed;
@@ -51,10 +52,11 @@ public class BenLeethiumResource {
     @Path("/tweet")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Timed
-    public Response updateStatus(@FormParam("message") String message) {
+    public Response updateStatus(@FormParam("message") String status) {
         try {
-            String status = twitterInstance.getInstance().updateStatus(message);
-            return Response.ok(new PostResponse(status)).build();
+            Message message = twitterInstance.getInstance().updateStatus(status);
+            return Response.ok(message).build();
+            //return Response.ok(new PostResponse(status)).build();
         } catch (RuntimeException e) {
             logger.debug(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST)

@@ -10,6 +10,8 @@ public class Message {
     private Date createdAt;
     private User user;
 
+    public Message() {}
+
     public Message(String text, Date createdAt, User user) {
         this.text = text;
         this.createdAt = createdAt;
@@ -33,9 +35,20 @@ public class Message {
     public User getUser() {
         return this.user;
     }
+    
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public void setUser(twitter4j.User user) {
         this.user = new User(user);
     }
 
+    public String toString() {
+        return "Message: [" + this.text + ", " + this.createdAt + ", " + this.user + "]";
+    }
 }
