@@ -14,7 +14,7 @@ import java.util.List;
 
 
 public class TwitterService {
-    private static final TwitterService INSTANCE = new TwitterService();
+    private static TwitterService INSTANCE;
     private final Twitter twitterInstance;
     public static final int MAX_CHAR_LIMIT = 280;
     final Logger logger = LoggerFactory.getLogger(TwitterService.class);
@@ -24,6 +24,9 @@ public class TwitterService {
     }
 
     public static TwitterService getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new TwitterService();
+        }
         return INSTANCE;
     }
 

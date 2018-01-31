@@ -27,19 +27,22 @@ import twitter4j.TwitterException;
 public class BenLeethiumResource {
 
     final Logger logger = LoggerFactory.getLogger(BenLeethiumResource.class);
-    public BenLeethiumResource() {}
+    private TwitterService twitterInstance;
+    public BenLeethiumResource() {
+        twitterInstance = TwitterService.getInstance();
+    }
 
     @GET
     @Path("/timeline")
     @Timed
     public Response getHomeTimeline() {
         try {
-            List<String> homelineTweets = TwitterService.getInstance().getHomeTimeline();
+            List<String> homelineTweets = twitterInstance.getHomeTimeline();
             return Response.ok(new GetResponse(homelineTweets)).build();
         } catch (TwitterException e) {
-            logger.warn("Unable to fetch home timeline.", e);
+            logger.error("Unable to fetch home timeline.", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                .entity(new ErrorResponse("There is a problem with the server. Please try again later"))
+                .entity(new ErrorResponse("An error has occurred. Please try again later"))
                 .build();
         }
     }
@@ -50,7 +53,7 @@ public class BenLeethiumResource {
     @Timed
     public Response updateStatus(@FormParam("message") String message) {
         try {
-            String status = TwitterService.getInstance().updateStatus(message);
+            String status = twitterInstance.getInstance().updateStatus(message);
             return Response.ok(new PostResponse(status)).build();
         } catch (RuntimeException e) {
             logger.debug(e.getMessage());
@@ -58,9 +61,9 @@ public class BenLeethiumResource {
                  .entity(new ErrorResponse("Malformed tweet. Ensure your tweet isn't empty or exceeds " + TwitterService.MAX_CHAR_LIMIT + " characters"))
                  .build();
         } catch (TwitterException e) {
-            logger.warn("Unable to post the tweet.", e);
+            logger.error("Unable to post the tweet.", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                .entity(new ErrorResponse("There is a problem with the server. Please try again later"))
+                .entity(new ErrorResponse("An error has occurred. Please try again later"))
                 .build();
         }
     }
