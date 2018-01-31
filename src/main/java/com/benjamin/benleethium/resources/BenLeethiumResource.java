@@ -1,5 +1,6 @@
 package com.benjamin.benleethium.resources;
 
+import com.benjamin.benleethium.api.PostResponse;
 import com.benjamin.benleethium.api.GetResponse;
 import com.benjamin.benleethium.api.ErrorResponse;
 import com.benjamin.benleethium.services.Get;
@@ -49,7 +50,20 @@ public class BenLeethiumResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Timed
     public Response updateStatus(@FormParam("message") String message) {
-        return Post.getInstance().updateStatus(message);
+        try {
+            String status = Post.getInstance().updateStatus(message);
+            return Response.ok(new PostResponse(status)).build();
+        } catch (RuntimeException e) {
+            logger.debug(e.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST)
+                 .entity(new ErrorResponse("Malformed tweet. Ensure your tweet isn't empty or exceeds " + Post.MAX_CHAR_LIMIT + " characters"))
+                 .build();
+        } catch (TwitterException e) {
+            logger.warn("Unable to post the tweet.", e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity(new ErrorResponse("There is a problem with the server. Please try again later"))
+                .build();
+        }
     }
 
 }
