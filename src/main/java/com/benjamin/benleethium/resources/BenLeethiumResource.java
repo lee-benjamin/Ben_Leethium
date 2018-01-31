@@ -3,8 +3,7 @@ package com.benjamin.benleethium.resources;
 import com.benjamin.benleethium.api.PostResponse;
 import com.benjamin.benleethium.api.GetResponse;
 import com.benjamin.benleethium.api.ErrorResponse;
-import com.benjamin.benleethium.services.Get;
-import com.benjamin.benleethium.services.Post;
+import com.benjamin.benleethium.services.TwitterService;
 import com.codahale.metrics.annotation.Timed;
 
 import org.slf4j.Logger;
@@ -35,7 +34,7 @@ public class BenLeethiumResource {
     @Timed
     public Response getHomeTimeline() {
         try {
-            List<String> homelineTweets = Get.getInstance().getHomeTimeline();
+            List<String> homelineTweets = TwitterService.getInstance().getHomeTimeline();
             return Response.ok(new GetResponse(homelineTweets)).build();
         } catch (TwitterException e) {
             logger.warn("Unable to fetch home timeline.", e);
@@ -51,12 +50,12 @@ public class BenLeethiumResource {
     @Timed
     public Response updateStatus(@FormParam("message") String message) {
         try {
-            String status = Post.getInstance().updateStatus(message);
+            String status = TwitterService.getInstance().updateStatus(message);
             return Response.ok(new PostResponse(status)).build();
         } catch (RuntimeException e) {
             logger.debug(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST)
-                 .entity(new ErrorResponse("Malformed tweet. Ensure your tweet isn't empty or exceeds " + Post.MAX_CHAR_LIMIT + " characters"))
+                 .entity(new ErrorResponse("Malformed tweet. Ensure your tweet isn't empty or exceeds " + TwitterService.MAX_CHAR_LIMIT + " characters"))
                  .build();
         } catch (TwitterException e) {
             logger.warn("Unable to post the tweet.", e);

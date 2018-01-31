@@ -5,21 +5,25 @@ import com.benjamin.benleethium.BenLeethiumApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
-public class Post {
+import java.util.ArrayList;
+import java.util.List;
 
-    private static final Post INSTANCE = new Post();
+
+public class TwitterService {
+    private static final TwitterService INSTANCE = new TwitterService();
     private final Twitter twitterInstance;
     public static final int MAX_CHAR_LIMIT = 280;
-    final Logger logger = LoggerFactory.getLogger(Post.class);
+    final Logger logger = LoggerFactory.getLogger(TwitterService.class);
 
-    private Post() {
+    private TwitterService() {
         twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
     }
 
-    public static Post getInstance() {
+    public static TwitterService getInstance() {
         return INSTANCE;
     }
 
@@ -37,5 +41,18 @@ public class Post {
         }
         logger.debug("Tweet NOT validated, malformed tweet body.");
         throw new RuntimeException("Tweet body is malformed. Update status aborted.");
+    }
+
+    public List<String> getHomeTimeline() throws TwitterException {
+        logger.debug("Retrieving home timeline...");
+        List<Status> statuses = twitterInstance.getHomeTimeline();
+
+        List<String> homelineTweets = new ArrayList<>();
+        for (Status status : statuses) {
+            homelineTweets.add(status.getUser().getName() + ": " +
+                               status.getText());
+        }
+        logger.debug("Got home timeline: {}", homelineTweets);
+        return homelineTweets;
     }
 }
