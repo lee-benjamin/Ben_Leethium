@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TwitterService {
 
@@ -40,9 +41,10 @@ public class TwitterService {
         logger.debug("Validating tweet before attempting to post.");
         if (this.validateTweet(tweet)) {
             logger.debug("Tweet valid. Posting tweet...");
-            return Optional.of(twitterInstance.updateStatus(tweet))
+            return Stream.of(twitterInstance.updateStatus(tweet))
                                         .map(s -> new Status(s))
-                                        .get();
+                                        .findFirst()
+                                        .orElseThrow(NoSuchElementException::new);
         }
         logger.debug("Tweet NOT validated, malformed tweet body.");
         throw new RuntimeException("Tweet body is malformed. Update status aborted.");
