@@ -9,6 +9,11 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+      <junit-jupiter.version>5.0.1</junit-jupiter.version>
+      <junit-jupiter-engine.version>5.0.1</junit-jupiter-engine.version>
+      <junit-vintage-engine.version>4.12.1</junit-vintage-engine.version>
+      <junit-platform.version>1.0.1</junit-platform.version>
+      <maven-surefire.version>2.19.1</maven-surefire.version>
       <dropwizard.version>1.2.2</dropwizard.version>
       <mockito.version>2.13.0</mockito.version>
       <twitter4j.version>[4.0,)</twitter4j.version>
@@ -18,6 +23,36 @@
     </properties>
 
     <dependencies>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit-jupiter.version}</version>
+        <scope>test</scope>
+      </dependency>
+        <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit-jupiter-engine.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+        <version>${junit-vintage-engine.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-launcher</artifactId>
+        <version>1.0.1</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-runner</artifactId>
+        <version>1.0.1</version>
+        <scope>test</scope>
+      </dependency>
       <dependency>
           <groupId>org.mockito</groupId>
           <artifactId>mockito-core</artifactId>
@@ -37,7 +72,24 @@
    </dependencies>
 
     <build>
-     <plugins>
+       <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire.version}</version>
+            <dependencies>
+                <dependency>
+                    <groupId>org.junit.platform</groupId>
+                    <artifactId>junit-platform-surefire-provider</artifactId>
+                    <version>${junit-platform.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-engine</artifactId>
+                    <version>${junit-jupiter-engine.version}</version>
+                </dependency>
+            </dependencies>
+       </plugin>
        <plugin>
          <groupId>org.apache.maven.plugins</groupId>
          <artifactId>maven-shade-plugin</artifactId>
