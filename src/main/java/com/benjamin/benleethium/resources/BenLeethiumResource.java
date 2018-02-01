@@ -16,6 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -41,7 +42,7 @@ public class BenLeethiumResource {
         } catch (TwitterException e) {
             logger.error("Unable to fetch home timeline.", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                .entity(new ErrorResponse("An error has occurred. Please try again later"))
+                .entity(new ErrorResponse("An error has occurred. Please try again later."))
                 .build();
         }
     }
@@ -62,9 +63,25 @@ public class BenLeethiumResource {
         } catch (TwitterException e) {
             logger.error("Unable to post the tweet.", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                .entity(new ErrorResponse("An error has occurred. Please try again later"))
+                .entity(new ErrorResponse("An error has occurred. Please try again later."))
                 .build();
         }
     }
 
+    @GET
+    @Path("/tweet/filter")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Timed
+    public Response searchHomeTimeline(@QueryParam("keyword") String keyword) {
+        try {
+            List<Status> searchResults = twitterInstance.getInstance().searchHomeTimeline(keyword);
+            logger.debug("Search returned.");
+            return Response.ok(searchResults).build();
+        } catch (TwitterException e) {
+           logger.error("Unable to search for query " + keyword + ".");
+          return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+              .entity(new ErrorResponse("An error has occurred. Please try again later."))
+              .build();
+        }
+    }
 }
