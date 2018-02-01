@@ -11,7 +11,7 @@ import twitter4j.TwitterException;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+import java.util.stream.Stream;
 
 public class TwitterService {
 
@@ -35,15 +35,18 @@ public class TwitterService {
         return (tweet != null && tweet.length() < MAX_CHAR_LIMIT);
     }
 
-    public Status updateStatus(String tweet) throws TwitterException, RuntimeException {
+    public Status updateStatus(String tweet) throws TwitterException, IllegalStateException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
         if (this.validateTweet(tweet)) {
-            Status response;
             logger.debug("Tweet valid. Posting tweet...");
-            twitter4j.Status status = twitterInstance.updateStatus(tweet);
-            response = new Status(status);
+            List<Status> status = Stream.of(twitterInstance.updateStatus(tweet))
+                                        .map(s -> new Status(s))
+                                        .collect(Collectors.toList());
+            if (status.size() != 1) {
+                throw new IllegalStateException();
+            }
             logger.debug("Successfully posted tweet.");
-            return response;
+            return status.get(0);
         }
         logger.debug("Tweet NOT validated, malformed tweet body.");
         throw new RuntimeException("Tweet body is malformed. Update status aborted.");
@@ -58,10 +61,9 @@ public class TwitterService {
 
     public List<Status> searchHomeTimeline(String keyword) throws TwitterException {
         logger.debug("Searching home timeline...");
-        List<twitter4j.Status> statuses = twitterInstance.getHomeTimeline();
-        return statuses.stream()
-                       .filter(s -> s.getText().contains(keyword))
-                       .map(s -> new Status(s))
-                       .collect(Collectors.toList());
+        return twitterInstance.getHomeTimeline().stream()
+                                                .filter(s -> s.getText().contains(keyword))
+                                                .map(s -> new Status(s))
+                                                .collect(Collectors.toList());
     }
 }

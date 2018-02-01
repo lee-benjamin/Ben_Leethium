@@ -56,16 +56,16 @@ public class BenLeethiumResource {
         try {
             Status status = twitterInstance.getInstance().updateStatus(message);
             return Response.ok(status).build();
+        } catch (TwitterException|IllegalStateException e) {
+            logger.error("Unable to post the tweet.", e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity(new ErrorResponse("An error has occurred. Please try again later."))
+                .build();
         } catch (RuntimeException e) {
             logger.debug(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST)
                  .entity(new ErrorResponse("Malformed tweet. Ensure your tweet isn't empty or exceeds " + TwitterService.MAX_CHAR_LIMIT + " characters"))
                  .build();
-        } catch (TwitterException e) {
-            logger.error("Unable to post the tweet.", e);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                .entity(new ErrorResponse("An error has occurred. Please try again later."))
-                .build();
         }
     }
 
