@@ -8,6 +8,7 @@ import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.NoSuchElementException;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -55,8 +56,9 @@ public class BenLeethiumResource {
     public Response updateStatus(@FormParam("message") String message) {
         try {
             Status status = twitterInstance.getInstance().updateStatus(message);
+            logger.debug("Successfully posted tweet.");
             return Response.ok(status).build();
-        } catch (TwitterException|IllegalStateException e) {
+        } catch (TwitterException|NoSuchElementException e) {
             logger.error("Unable to post the tweet.", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                 .entity(new ErrorResponse("An error has occurred. Please try again later."))

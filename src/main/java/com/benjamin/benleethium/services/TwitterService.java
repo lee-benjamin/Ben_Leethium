@@ -9,9 +9,10 @@ import org.slf4j.LoggerFactory;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TwitterService {
 
@@ -35,18 +36,13 @@ public class TwitterService {
         return (tweet != null && tweet.length() < MAX_CHAR_LIMIT);
     }
 
-    public Status updateStatus(String tweet) throws TwitterException, IllegalStateException, RuntimeException {
+    public Status updateStatus(String tweet) throws TwitterException, NoSuchElementException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
         if (this.validateTweet(tweet)) {
             logger.debug("Tweet valid. Posting tweet...");
-            List<Status> status = Stream.of(twitterInstance.updateStatus(tweet))
+            return Optional.of(twitterInstance.updateStatus(tweet))
                                         .map(s -> new Status(s))
-                                        .collect(Collectors.toList());
-            if (status.size() != 1) {
-                throw new IllegalStateException();
-            }
-            logger.debug("Successfully posted tweet.");
-            return status.get(0);
+                                        .get();
         }
         logger.debug("Tweet NOT validated, malformed tweet body.");
         throw new RuntimeException("Tweet body is malformed. Update status aborted.");
