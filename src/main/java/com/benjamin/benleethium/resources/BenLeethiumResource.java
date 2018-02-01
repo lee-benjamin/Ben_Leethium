@@ -38,6 +38,7 @@ public class BenLeethiumResource {
     public Response getHomeTimeline() {
         try {
             List<Status> homelineTweets = twitterInstance.getHomeTimeline();
+            logger.debug("Got home timeline.");
             return Response.ok(homelineTweets).build();
         } catch (TwitterException e) {
             logger.error("Unable to fetch home timeline.", e);

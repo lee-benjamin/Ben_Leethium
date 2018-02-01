@@ -51,11 +51,9 @@ public class TwitterService {
 
     public List<Status> getHomeTimeline() throws TwitterException {
         logger.debug("Retrieving home timeline...");
-        List<twitter4j.Status> statuses = twitterInstance.getHomeTimeline();
-        logger.debug("Got home timeline.");
-        return statuses.stream()
-                       .map(s -> new Status(s))
-                       .collect(Collectors.toList());
+        return twitterInstance.getHomeTimeline().stream()
+                                                .map(s -> new Status(s))
+                                                .collect(Collectors.toList());
     }
 
     public List<Status> searchHomeTimeline(String keyword) throws TwitterException {
