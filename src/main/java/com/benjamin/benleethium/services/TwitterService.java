@@ -33,6 +33,10 @@ public class TwitterService {
         return twitterServiceInstance;
     }
 
+    static setInstance(TwitterService newInstance) {
+        twitterServiceInstance = newInstance;
+    }
+
     public boolean validateTweet(String tweet) {
         return (tweet != null && tweet.length() < MAX_CHAR_LIMIT);
     }
