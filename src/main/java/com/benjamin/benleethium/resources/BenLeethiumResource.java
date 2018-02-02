@@ -28,9 +28,9 @@ import twitter4j.TwitterException;
 public class BenLeethiumResource {
 
     final Logger logger = LoggerFactory.getLogger(BenLeethiumResource.class);
-    private TwitterService twitterInstance;
+    private TwitterService twitterServiceInstance;
     public BenLeethiumResource() {
-        twitterInstance = TwitterService.getInstance();
+        twitterServiceInstance = TwitterService.getInstance();
     }
 
     @GET
@@ -38,7 +38,7 @@ public class BenLeethiumResource {
     @Timed
     public Response getHomeTimeline() {
         try {
-            List<Status> homelineTweets = twitterInstance.getHomeTimeline();
+            List<Status> homelineTweets = twitterServiceInstance.getHomeTimeline();
             logger.debug("Got home timeline.");
             return Response.ok(homelineTweets).build();
         } catch (TwitterException e) {
@@ -55,7 +55,7 @@ public class BenLeethiumResource {
     @Timed
     public Response updateStatus(@FormParam("message") String message) {
         try {
-            Status status = twitterInstance.getInstance().updateStatus(message);
+            Status status = twitterServiceInstance.getInstance().updateStatus(message);
             logger.debug("Successfully posted tweet.");
             return Response.ok(status).build();
         } catch (TwitterException|NoSuchElementException e) {
@@ -77,7 +77,7 @@ public class BenLeethiumResource {
     @Timed
     public Response searchHomeTimeline(@QueryParam("keyword") String keyword) {
         try {
-            List<Status> searchResults = twitterInstance.getInstance().searchHomeTimeline(keyword);
+            List<Status> searchResults = twitterServiceInstance.getInstance().searchHomeTimeline(keyword);
             logger.debug("Search returned.");
             return Response.ok(searchResults).build();
         } catch (TwitterException e) {
