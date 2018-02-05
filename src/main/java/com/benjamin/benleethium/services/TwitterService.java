@@ -39,7 +39,7 @@ public class TwitterService {
     }
 
     public boolean validateTweet(String tweet) {
-        return (tweet != null && tweet.length() < MAX_CHAR_LIMIT);
+        return (tweet != null && tweet.length() <= MAX_CHAR_LIMIT);
     }
 
     public Status updateStatus(String tweet) throws TwitterException, NoSuchElementException, RuntimeException {
