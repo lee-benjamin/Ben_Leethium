@@ -34,8 +34,8 @@ public class TwitterService {
         return twitterServiceInstance;
     }
 
-    void setInstance(Twitter newTwitterInstance) {
-        twitterInstance = newTwitterInstance;
+    static TwitterService getTestInstance(Twitter newTwitterInstance) {
+        return new TwitterService(newTwitterInstance);
     }
 
     public boolean validateTweet(String tweet) {

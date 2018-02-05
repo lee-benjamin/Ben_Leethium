@@ -25,20 +25,13 @@ import twitter4j.TwitterException;
 
 public class TwitterServiceTest {
 
-    //private TwitterService twitterService = TwitterService.getInstance();
+    private Twitter twitterInstance;
+    private TwitterService twitterService;
 
-    //@Before
-    //public void setUp() throws Exception {
-    //    System.out.println("Setting up...");
-    //    //twitterService = mock(TwitterService.class);
-    //    //System.out.println(twitterService);
-    //}
-
-    @Test
-    public void naiveTest() {
-        // fails NullPointerException
-        //TwitterService twitterInstance = TwitterService.getInstance();
-        assertFalse(false);
+    @Before
+    public void setUp() throws Exception {
+        twitterInstance = mock(Twitter.class);
+        twitterService = TwitterService.getTestInstance(twitterInstance);
     }
 
     @Test
