@@ -26,11 +26,11 @@ public class TestStatus implements twitter4j.Status {
     private long[] contributors;
     private int retweetCount;
     private boolean retweetedByMe;
-    private long curretnUserRetweetId;
+    private long currentUserRetweetId;
     private boolean possiblySensitive;
     private String lang;
     private Scopes scopes;
-    private String[] witheldInCountries;
+    private String[] withheldInCountries;
     private long quotedStatusId;
     private Status quotedStatus;
     private UserMentionEntity[] userMentionEntities;
@@ -213,12 +213,12 @@ public class TestStatus implements twitter4j.Status {
         this.retweetedByMe = retweetedByMe;
     }
 
-    public long getCurretnUserRetweetId() {
-        return curretnUserRetweetId;
+    public long getCurrentUserRetweetId() {
+        return currentUserRetweetId;
     }
 
-    public void setCurretnUserRetweetId(long curretnUserRetweetId) {
-        this.curretnUserRetweetId = curretnUserRetweetId;
+    public void setCurrentUserRetweetId(long currentUserRetweetId) {
+        this.currentUserRetweetId = currentUserRetweetId;
     }
 
     @Override
@@ -248,12 +248,12 @@ public class TestStatus implements twitter4j.Status {
         this.scopes = scopes;
     }
 
-    public String[] getWitheldInCountries() {
-        return witheldInCountries;
+    public String[] getWithheldInCountries() {
+        return withheldInCountries;
     }
 
-    public void setWitheldInCountries(String[] witheldInCountries) {
-        this.witheldInCountries = witheldInCountries;
+    public void setWithheldInCountries(String[] withheldInCountries) {
+        this.withheldInCountries = withheldInCountries;
     }
 
     @Override
