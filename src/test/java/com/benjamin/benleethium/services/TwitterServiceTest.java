@@ -67,11 +67,21 @@ public class TwitterServiceTest {
     }
     @Test
     public void testUpdateStatus() throws TwitterException {
-        //String tweet = "This is a test.";
-        //Status status = new Status(tweet, new Date(), new User());
-        //Twitter twitterInstance = mock(Twitter.class);
-        //when(twitterInstance.updateStatus(tweet)).thenReturn(status);
-        //assertEquals(status, twitterServiceInstance.updateStatus(tweet));
+        twitter4j.Status status = mock(twitter4j.Status.class);
+        twitter4j.User user = mock(twitter4j.User.class);
+        String tweet = "This is a test.";
+        Date date = new Date();
+        User parsedUser = new User("Ben", "BenLeethium", "ben.com");
+
+        //when(status.getText()).thenReturn(tweet);
+        //when(status.getCreatedAt()).thenReturn(date);
+        //when(status.getUser()).thenReturn(user);
+        //when(user.getName()).thenReturn("Ben");
+        //when(user.getScreenName()).thenReturn("BenLeethium");
+        //when(user.getProfileImageURL()).thenReturn("ben.com");
+
+        Status expectedResult = new Status(tweet, date, parsedUser);
+        assertEquals(expectedResult, twitterService.updateStatus(tweet));
     }
 
     @Test
