@@ -18,7 +18,7 @@ You can find these values in the settings page of your Twitter Application.
 
 Clone this repo into the directory of your choice and run `mvn package`.
 
-Now an fat/uber jar has been generated in the `target` directory. To start the server, run `java -jar target/Ben_Leethium-XXX.jar server benleethium.yml`
+Now an fat/uber jar has been generated in the `target` directory. To start the server, run `java -jar target/Ben_Leethium-1.0=SNAPSHOT.jar server benleethium.yml`
 
 ### API Endpoints
 
@@ -43,6 +43,6 @@ http://localhost:8081/metrics
 
 Should you want to change the logging level refer to the following example and replace the level with whatever you desire.
 
-`java -Ddw.logging.level=DEBUG -jar target/your-jar server benleethium.yml`
+`java -Ddw.logging.level=DEBUG target/Ben_Leethium-1.0-SNAPSHOT.jar server benleethium.yml`
 
 It defaults to INFO.
