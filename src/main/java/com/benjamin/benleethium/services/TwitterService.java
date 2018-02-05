@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 public class TwitterService {
 
     public static final int MAX_CHAR_LIMIT = 280;
@@ -33,7 +34,7 @@ public class TwitterService {
         return twitterServiceInstance;
     }
 
-    static setInstance(TwitterService newInstance) {
+    void setInstance(TwitterService newInstance) {
         twitterServiceInstance = newInstance;
     }
 
