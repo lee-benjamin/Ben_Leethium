@@ -20,22 +20,22 @@ public class TwitterService {
 
     public static final int MAX_CHAR_LIMIT = 280;
     private final Logger logger = LoggerFactory.getLogger(TwitterService.class);
-    private final Twitter twitterInstance;
+    private Twitter twitterInstance;
     private static TwitterService twitterServiceInstance;
 
-    private TwitterService() {
-        twitterInstance = BenLeethiumApplication.twitterFactory.getInstance();
+    private TwitterService(Twitter twitterInstance) {
+        this.twitterInstance = twitterInstance;
     }
 
     public static TwitterService getInstance() {
         if (twitterServiceInstance == null) {
-            twitterServiceInstance = new TwitterService();
+            twitterServiceInstance = new TwitterService(BenLeethiumApplication.twitterFactory.getInstance());
         }
         return twitterServiceInstance;
     }
 
-    void setInstance(TwitterService newInstance) {
-        twitterServiceInstance = newInstance;
+    void setInstance(Twitter newTwitterInstance) {
+        twitterInstance = newTwitterInstance;
     }
 
     public boolean validateTweet(String tweet) {
