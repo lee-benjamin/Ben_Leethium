@@ -6,6 +6,8 @@ public class User {
     private String screenName;
     private String profileImageURL;
 
+    public User() {}
+
     public User(String name, String screenName, String profileImageURL) {
         this.name = name;
         this.screenName = screenName;
