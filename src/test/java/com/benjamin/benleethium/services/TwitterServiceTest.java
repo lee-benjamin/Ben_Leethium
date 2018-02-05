@@ -67,6 +67,9 @@ public class TwitterServiceTest {
     }
     @Test
     public void testUpdateStatus() throws TwitterException {
+        // Create a new Status class (for testing) that implements the twitter4j.Status inteface
+        // Mock the return of this Status, but the status itself is not mocked
+
         //twitter4j.Status status = mock(twitter4j.Status.class);
         //twitter4j.User user = mock(twitter4j.User.class);
         //String tweet = "This is a test.";
