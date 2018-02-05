@@ -37,10 +37,11 @@ public class TestStatus implements twitter4j.Status {
     private URLEntity[] urlEntities;
     private HashtagEntity[] hashtagEntities;
     private MediaEntity[] mediaEntities;
-    private ExtendedMediaEntity[] extendedMediaEntities;
     private SymbolEntity[] symbolEntities;
     private RateLimitStatus rateLimitStatus;
     private int accessLevel;
+    private int displayTextRangeEnd;
+    private int displayTextRangeStart;
 
     @Override
     public Date getCreatedAt() {
@@ -279,6 +280,11 @@ public class TestStatus implements twitter4j.Status {
         return userMentionEntities;
     }
 
+    @Override
+    public URLEntity[] getURLEntities() {
+        return new URLEntity[0];
+    }
+
     public void setUserMentionEntities(UserMentionEntity[] userMentionEntities) {
         this.userMentionEntities = userMentionEntities;
     }
@@ -310,15 +316,6 @@ public class TestStatus implements twitter4j.Status {
     }
 
     @Override
-    public ExtendedMediaEntity[] getExtendedMediaEntities() {
-        return extendedMediaEntities;
-    }
-
-    public void setExtendedMediaEntities(ExtendedMediaEntity[] extendedMediaEntities) {
-        this.extendedMediaEntities = extendedMediaEntities;
-    }
-
-    @Override
     public SymbolEntity[] getSymbolEntities() {
         return symbolEntities;
     }
@@ -343,5 +340,28 @@ public class TestStatus implements twitter4j.Status {
 
     public void setAccessLevel(int accessLevel) {
         this.accessLevel = accessLevel;
+    }
+
+    @Override
+    public int getDisplayTextRangeEnd() {
+        return displayTextRangeEnd;
+    }
+
+    public void setDisplayTextRangeEnd(int displayTextRangeEnd) {
+        this.displayTextRangeEnd = displayTextRangeEnd;
+    }
+
+    @Override
+    public int getDisplayTextRangeStart() {
+        return displayTextRangeStart;
+    }
+
+    public void setDisplayTextRangeStart(int displayTextRangeStart) {
+        this.displayTextRangeStart = displayTextRangeStart;
+    }
+
+    @Override
+    public int compareTo(Status o) {
+        return 0;
     }
 }
