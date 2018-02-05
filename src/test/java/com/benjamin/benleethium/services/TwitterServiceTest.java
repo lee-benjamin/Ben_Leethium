@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static javafx.beans.binding.Bindings.when;
 
@@ -40,14 +41,30 @@ public class TwitterServiceTest {
 
     @Test
     public void testValidateTweetMaxChar() {
-        //StringBuilder badTweet = new StringBuilder();
-        //for (int i=0; i<=TwitterService.MAX_CHAR_LIMIT; i++) {
-        //    badTweet.append(".");
-        //}
-        //assertFalse("Tweet exceeds maximum character limit",
-        //    twitterServiceInstance.validateTweet(badTweet.toString()));
+        StringBuilder badTweet = new StringBuilder();
+        for (int i=0; i<=TwitterService.MAX_CHAR_LIMIT; i++) {
+            badTweet.append(".");
+        }
+        assertFalse("Tweet exceeds maximum character limit.",
+            twitterService.validateTweet(badTweet.toString()));
     }
 
+    @Test
+    public void testValidateTweetNull() {
+        assertFalse("Testing null tweet.",
+            twitterService.validateTweet(null));
+    }
+
+    @Test
+    public void testValidateTweet() {
+        String grandioseTweet = "North Korean Leader Kim Jong Un just stated that the "
+            + "“Nuclear Button is on his desk at all times.” Will someone from his "
+            + "depleted and food starved regime please inform him that I too have a "
+            + "Nuclear Button, but it is a much bigger & more powerful one than his,"
+            + " and my Button works!";
+        assertTrue("Testing a legal tweet of 280 characters.",
+            twitterService.validateTweet(grandioseTweet));
+    }
     @Test
     public void testUpdateStatus() throws TwitterException {
         //String tweet = "This is a test.";
