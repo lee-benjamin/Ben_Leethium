@@ -53,4 +53,13 @@ public class Status {
             && this.createdAt.equals(s.getCreatedAt())
             && this.user.equals(s.getUser());
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 32887; // a happy prime
+        hash = hash * 54941 + this.text.hashCode();
+        hash = hash * 54941 + this.createdAt.hashCode();
+        hash = hash * 54941 + this.user.hashCode();
+        return hash;
+    }
 }

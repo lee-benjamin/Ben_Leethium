@@ -51,4 +51,13 @@ public class User {
           && this.screenName.equals(u.getScreenName())
           && this.profileImageURL.equals(u.getProfileImageURL());
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 32887; // a happy prime
+        hash = hash * 54941 + this.name.hashCode();
+        hash = hash * 54941 + this.screenName.hashCode();
+        hash = hash * 54941 + this.profileImageURL.hashCode();
+        return hash;
+    }
 }
