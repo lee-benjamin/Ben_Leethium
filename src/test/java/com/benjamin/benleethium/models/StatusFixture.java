@@ -6,7 +6,7 @@ import twitter4j.User;
 
 import java.util.Date;
 
-public class TestStatus implements twitter4j.Status {
+public class StatusFixture implements twitter4j.Status {
     private Date createdAt;
     private long id;
     private String text;

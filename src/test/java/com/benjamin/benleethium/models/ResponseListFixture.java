@@ -4,7 +4,7 @@ import twitter4j.RateLimitStatus;
 
 import java.util.ArrayList;
 
-public class TestResponseList<T> extends ArrayList<T> implements twitter4j.ResponseList<T> {
+public class ResponseListFixture<T> extends ArrayList<T> implements twitter4j.ResponseList<T> {
 
     @Override
     public RateLimitStatus getRateLimitStatus() {
