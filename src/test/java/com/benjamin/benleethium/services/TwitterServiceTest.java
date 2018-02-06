@@ -62,6 +62,7 @@ public class TwitterServiceTest {
         assertTrue("Testing a legal tweet of 280 characters.",
             twitterService.validateTweet(grandioseTweet));
     }
+
     @Test
     public void testUpdateStatus() throws TwitterException {
         String tweet = "This is a test.";
