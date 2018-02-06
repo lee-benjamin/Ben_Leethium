@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.benjamin.benleethium.resources.BenLeethiumResource;
+import com.benjamin.benleethium.services.TwitterService;
 import com.benjamin.benleethium.health.TemplateHealthCheck;
 
 import twitter4j.TwitterFactory;
@@ -41,7 +42,7 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
         twitterFactory = new TwitterFactory(cb.build());
         logger.info("Twitter OAuth credentials successfully loaded from yml file.");
 
-        final BenLeethiumResource resource = new BenLeethiumResource();
+        final BenLeethiumResource resource = new BenLeethiumResource(TwitterService.getInstance());
         environment.jersey().register(resource);
 
         final TemplateHealthCheck healthCheck = new TemplateHealthCheck();
