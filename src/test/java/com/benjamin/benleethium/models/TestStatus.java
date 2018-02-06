@@ -311,6 +311,10 @@ public class TestStatus implements twitter4j.Status {
         return mediaEntities;
     }
 
+    public ExtendedMediaEntity[] getExtendedMediaEntities() {
+        return new ExtendedMediaEntity[0];
+    }
+
     public void setMediaEntities(MediaEntity[] mediaEntities) {
         this.mediaEntities = mediaEntities;
     }
@@ -342,7 +346,6 @@ public class TestStatus implements twitter4j.Status {
         this.accessLevel = accessLevel;
     }
 
-    @Override
     public int getDisplayTextRangeEnd() {
         return displayTextRangeEnd;
     }
@@ -351,7 +354,6 @@ public class TestStatus implements twitter4j.Status {
         this.displayTextRangeEnd = displayTextRangeEnd;
     }
 
-    @Override
     public int getDisplayTextRangeStart() {
         return displayTextRangeStart;
     }
