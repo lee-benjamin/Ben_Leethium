@@ -62,6 +62,7 @@ public class TestUser implements User {
     private String[] withheldInCountries;
     private RateLimitStatus rateLimitStatus;
     private int accessLevel;
+    private String email;
 
     @Override
     public long getId() {
@@ -541,5 +542,12 @@ public class TestUser implements User {
     public int compareTo(User o) {
         return 0;
     }
-}
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}

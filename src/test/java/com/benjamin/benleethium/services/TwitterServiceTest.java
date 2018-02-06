@@ -12,6 +12,8 @@ import static javafx.beans.binding.Bindings.when;
 
 import com.benjamin.benleethium.models.Status;
 import com.benjamin.benleethium.models.User;
+import com.benjamin.benleethium.models.TestStatus;
+import com.benjamin.benleethium.models.TestUser;
 
 import java.util.Date;
 
@@ -70,11 +72,17 @@ public class TwitterServiceTest {
         // Create a new Status class (for testing) that implements the twitter4j.Status inteface
         // Mock the return of this Status, but the status itself is not mocked
 
-        //twitter4j.Status status = mock(twitter4j.Status.class);
-        //twitter4j.User user = mock(twitter4j.User.class);
-        //String tweet = "This is a test.";
-        //Date date = new Date();
-        //User parsedUser = new User("Ben", "BenLeethium", "ben.com");
+        TestStatus testStatus = new TestStatus();
+        TestUser testUser = new TestUser();
+        String tweet = "This is a test.";
+        Date date = new Date();
+        User parsedUser = new User("Ben", "BenLeethium", "ben.com");
+        //testStatus.setText(tweet);
+        //testStatus.setCreatedAt(date);
+        //testStatus.setUser(
+        //Status expectedResult = new Status(tweet, date, parsedUser);
+
+        //when(twitterInstance.updateStatus(tweet)).thenReturn(testStatus);
 
         //when(status.getText()).thenReturn(tweet);
         //when(status.getCreatedAt()).thenReturn(date);
@@ -83,7 +91,6 @@ public class TwitterServiceTest {
         //when(user.getScreenName()).thenReturn("BenLeethium");
         //when(user.getProfileImageURL()).thenReturn("ben.com");
 
-        //Status expectedResult = new Status(tweet, date, parsedUser);
         //assertEquals(expectedResult, twitterService.updateStatus(tweet));
     }
 
