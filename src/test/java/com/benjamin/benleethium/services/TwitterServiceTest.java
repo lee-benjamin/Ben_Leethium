@@ -72,15 +72,26 @@ public class TwitterServiceTest {
         // Create a new Status class (for testing) that implements the twitter4j.Status inteface
         // Mock the return of this Status, but the status itself is not mocked
 
-        TestStatus testStatus = new TestStatus();
-        TestUser testUser = new TestUser();
         String tweet = "This is a test.";
         Date date = new Date();
-        User parsedUser = new User("Ben", "BenLeethium", "ben.com");
-        //testStatus.setText(tweet);
-        //testStatus.setCreatedAt(date);
-        //testStatus.setUser(
-        //Status expectedResult = new Status(tweet, date, parsedUser);
+        String name = "Ben";
+        String screenName = "BenLeethium";
+        String profileImageURL = "ben.com";
+
+        // Construct the twitter4j.Status to be mocked
+        TestStatus testStatus = new TestStatus();
+        TestUser testUser = new TestUser();
+
+        testUser.setName(name);
+        testUser.setScreenName(screenName);
+        testUser.setProfileImageURL(profileImageURL);
+        testStatus.setText(tweet);
+        testStatus.setCreatedAt(date);
+        testStatus.setUser(testUser);
+
+        // Construct the expected benleethium Status to be returned by Twitter Service
+        User parsedUser = new User(name, screenName, profileImageURL);
+        Status expectedResult = new Status(tweet, date, parsedUser);
 
         //when(twitterInstance.updateStatus(tweet)).thenReturn(testStatus);
 
