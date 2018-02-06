@@ -147,5 +147,42 @@ public class TwitterServiceTest {
 
     @Test
     public void searchHomeTimeline() throws TwitterException {
+        String[] tweets = {"This is a test.", "tweeting my cares away.","A tweet a day doth a healthy bird make."};
+        String query = "tweet";
+        String name = "Ben";
+        String screenName = "BenLeethium";
+        String profileImageURL = "ben.com";
+        Date date = new Date();
+
+        // twitterInstance.getHomeTimeline() returns a ResponseList
+        ResponseList<twitter4j.Status> testStatuses = new TestResponseList<>();
+
+        TestStatus testStatus;
+        TestUser testUser;
+        int count = 0; // counts the occurrences of 'query' in tweets[]
+
+        // Construct the list of twitter4j.Statuses to be mocked
+        for (int i=0; i<tweets.length;i++) {
+            if (tweets[i].contains(query)) {
+                count++;
+            }
+
+            testStatus = new TestStatus();
+            testUser = new TestUser();
+
+            // Construct twitter4j's response
+            testUser.setName(name);
+            testUser.setScreenName(screenName);
+            testUser.setProfileImageURL(profileImageURL);
+            testStatus.setText(tweets[i]);
+            testStatus.setCreatedAt(date);
+            testStatus.setUser(testUser);
+
+            // save to list
+            testStatuses.add(testStatus);
+        }
+        // Mock dependency's logic
+        Mockito.when(twitterInstance.getHomeTimeline()).thenReturn(testStatuses);
+        assertEquals(count, twitterService.searchHomeTimeline(query).size());
     }
 }
