@@ -43,4 +43,12 @@ public class User {
     public void setProfileImageURL(String profileImageURL) {
         this.profileImageURL = profileImageURL;
     }
+
+    @Override
+    public boolean equals(Object o) {
+       User u = (User) o;
+      return this.name.equals(u.getName())
+          && this.screenName.equals(u.getScreenName())
+          && this.profileImageURL.equals(u.getProfileImageURL());
+    }
 }

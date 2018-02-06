@@ -45,4 +45,12 @@ public class Status {
     public void setUser(twitter4j.User user) {
         this.user = new User(user);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        Status s = (Status) o;
+        return this.text.equals(s.getText())
+            && this.createdAt.equals(s.getCreatedAt())
+            && this.user.equals(s.getUser());
+    }
 }
