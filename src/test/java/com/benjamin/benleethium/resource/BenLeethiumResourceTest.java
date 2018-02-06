@@ -63,12 +63,11 @@ public class BenLeethiumResourceTest {
         Mockito.when(twitterService.getHomeTimeline()).thenReturn(expectedResults);
         Response response = benLeethiumResource.getHomeTimeline();
 
-        // check status code
-        //  check body
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        //for (int i=0; i<tweets.length; i++) {
-        //    assertEquals(tweets[i], expectedResults.get(i).getText());    
-        //}
+        List<Status> statuses = (List<Status>) response.getEntity();
+        for (int i=0; i<tweets.length; i++) {
+            assertEquals(tweets[i], statuses.get(i).getText());
+        }
     }
 
     @Test
