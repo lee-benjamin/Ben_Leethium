@@ -10,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.benjamin.benleethium.models.Status;
 import com.benjamin.benleethium.models.User;
-import com.benjamin.benleethium.models.TestStatus;
-import com.benjamin.benleethium.models.TestUser;
-import com.benjamin.benleethium.models.TestResponseList;
+import com.benjamin.benleethium.models.StatusFixture;
+import com.benjamin.benleethium.models.UserFixture;
+import com.benjamin.benleethium.models.ResponseListFixture;
 
 import java.util.Date;
 import java.util.ArrayList;
@@ -76,22 +76,22 @@ public class TwitterServiceTest {
         Date date = new Date();
 
         // Construct the twitter4j.Status to be mocked
-        TestStatus testStatus = new TestStatus();
-        TestUser testUser = new TestUser();
+        StatusFixture statusFixture = new StatusFixture();
+        UserFixture userFixture = new UserFixture();
 
-        testUser.setName(name);
-        testUser.setScreenName(screenName);
-        testUser.setProfileImageURL(profileImageURL);
-        testStatus.setText(tweet);
-        testStatus.setCreatedAt(date);
-        testStatus.setUser(testUser);
+        userFixture.setName(name);
+        userFixture.setScreenName(screenName);
+        userFixture.setProfileImageURL(profileImageURL);
+        statusFixture.setText(tweet);
+        statusFixture.setCreatedAt(date);
+        statusFixture.setUser(userFixture);
 
         // Construct the expected Status to be returned by TwitterService
         User parsedUser = new User(name, screenName, profileImageURL);
         Status expectedResult = new Status(tweet, date, parsedUser);
 
         // Mock dependency's logic
-        Mockito.when(twitterInstance.updateStatus(tweet)).thenReturn(testStatus);
+        Mockito.when(twitterInstance.updateStatus(tweet)).thenReturn(statusFixture);
 
         // Verify values
         assertEquals(expectedResult, twitterService.updateStatus(tweet));
@@ -106,34 +106,34 @@ public class TwitterServiceTest {
         Date date = new Date();
 
         // twitterInstance.getHomeTimeline() returns a ResponseList
-        ResponseList<twitter4j.Status> testStatuses = new TestResponseList<>();
+        ResponseList<twitter4j.Status> testStatuses = new ResponseListFixture<>();
         // TwitterService.getHomeTimeline() returns a List<Status>
         List<Status> expectedResults = new ArrayList<>();
 
-        TestStatus testStatus;
-        TestUser testUser;
+        StatusFixture statusFixture;
+        UserFixture userFixture;
         User parsedUser; // stripped version of a twitter4j.User
         Status parsedStatus; // stripped version of a twitter4j.Status
 
         // Construct the list of twitter4j.Statuses to be mocked
         for (int i=0; i<tweets.length;i++) {
-            testStatus = new TestStatus();
-            testUser = new TestUser();
+            statusFixture = new StatusFixture();
+            userFixture = new UserFixture();
 
             // Construct twitter4j's response
-            testUser.setName(name);
-            testUser.setScreenName(screenName);
-            testUser.setProfileImageURL(profileImageURL);
-            testStatus.setText(tweets[i]);
-            testStatus.setCreatedAt(date);
-            testStatus.setUser(testUser);
+            userFixture.setName(name);
+            userFixture.setScreenName(screenName);
+            userFixture.setProfileImageURL(profileImageURL);
+            statusFixture.setText(tweets[i]);
+            statusFixture.setCreatedAt(date);
+            statusFixture.setUser(userFixture);
 
             // Construct twitterService's expected response
             parsedUser = new User(name, screenName, profileImageURL);
             parsedStatus = new Status(tweets[i], date, parsedUser);
 
             // save to list
-            testStatuses.add(testStatus);
+            testStatuses.add(statusFixture);
             expectedResults.add(parsedStatus);
         }
         // Mock dependency's logic
@@ -155,10 +155,10 @@ public class TwitterServiceTest {
         Date date = new Date();
 
         // twitterInstance.getHomeTimeline() returns a ResponseList
-        ResponseList<twitter4j.Status> testStatuses = new TestResponseList<>();
+        ResponseList<twitter4j.Status> testStatuses = new ResponseListFixture<>();
 
-        TestStatus testStatus;
-        TestUser testUser;
+        StatusFixture statusFixture;
+        UserFixture userFixture;
         int count = 0; // counts the occurrences of 'query' in tweets[]
 
         // Construct the list of twitter4j.Statuses to be mocked
@@ -167,19 +167,19 @@ public class TwitterServiceTest {
                 count++;
             }
 
-            testStatus = new TestStatus();
-            testUser = new TestUser();
+            statusFixture = new StatusFixture();
+            userFixture = new UserFixture();
 
             // Construct twitter4j's response
-            testUser.setName(name);
-            testUser.setScreenName(screenName);
-            testUser.setProfileImageURL(profileImageURL);
-            testStatus.setText(tweets[i]);
-            testStatus.setCreatedAt(date);
-            testStatus.setUser(testUser);
+            userFixture.setName(name);
+            userFixture.setScreenName(screenName);
+            userFixture.setProfileImageURL(profileImageURL);
+            statusFixture.setText(tweets[i]);
+            statusFixture.setCreatedAt(date);
+            statusFixture.setUser(userFixture);
 
             // save to list
-            testStatuses.add(testStatus);
+            testStatuses.add(statusFixture);
         }
         // Mock dependency's logic
         Mockito.when(twitterInstance.getHomeTimeline()).thenReturn(testStatuses);

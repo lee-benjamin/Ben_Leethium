@@ -7,7 +7,7 @@ import twitter4j.User;
 
 import java.util.Date;
 
-public class TestUser implements User {
+public class UserFixture implements User {
 
     private long id;
     private String name;
