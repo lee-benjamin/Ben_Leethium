@@ -12,13 +12,17 @@ import com.benjamin.benleethium.models.Status;
 import com.benjamin.benleethium.models.User;
 import com.benjamin.benleethium.models.TestStatus;
 import com.benjamin.benleethium.models.TestUser;
+import com.benjamin.benleethium.models.TestResponseList;
 
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.mockito.Mockito;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.ResponseList;
 
 public class TwitterServiceTest {
 
@@ -90,15 +94,43 @@ public class TwitterServiceTest {
         Mockito.when(twitterInstance.updateStatus(tweet)).thenReturn(testStatus);
 
         // Verify values
-        twitterService.updateStatus(tweet);
         assertEquals(expectedResult, twitterService.updateStatus(tweet));
     }
 
     @Test
-    public void testGetHomeTimeline() {
+    public void testGetHomeTimeline() throws TwitterException {
+        String tweet = "This is a test.";
+        String name = "Ben";
+        String screenName = "BenLeethium";
+        String profileImageURL = "ben.com";
+        Date date = new Date();
+
+        // Construct the list of twitter4j.Statuses to be mocked
+        TestStatus testStatus = new TestStatus();
+        TestUser testUser = new TestUser();
+
+        testUser.setName(name);
+        testUser.setScreenName(screenName);
+        testUser.setProfileImageURL(profileImageURL);
+        testStatus.setText(tweet);
+        testStatus.setCreatedAt(date);
+        testStatus.setUser(testUser);
+        ResponseList<twitter4j.Status> testStatuses = new TestResponseList<>();
+        testStatuses.add(testStatus);
+
+
+        // Construct the expected benleethium Status to be returned by Twitter Service
+        User parsedUser = new User(name, screenName, profileImageURL);
+        List<Status> expectedResults= new ArrayList<>();
+        expectedResults.add(new Status(tweet, date, parsedUser));
+
+        // Mock dependency's logic
+        Mockito.when(twitterInstance.getHomeTimeline()).thenReturn(testStatuses);
+
+        assertEquals(expectedResults.get(0), twitterService.getHomeTimeline().get(0));;
     }
 
     @Test
-    public void searchHomeTimeline() {
+    public void searchHomeTimeline() throws TwitterException {
     }
 }
