@@ -86,7 +86,7 @@ public class TwitterServiceTest {
         testStatus.setCreatedAt(date);
         testStatus.setUser(testUser);
 
-        // Construct the expected benleethium Status to be returned by Twitter Service
+        // Construct the expected Status to be returned by TwitterService
         User parsedUser = new User(name, screenName, profileImageURL);
         Status expectedResult = new Status(tweet, date, parsedUser);
 
@@ -99,35 +99,50 @@ public class TwitterServiceTest {
 
     @Test
     public void testGetHomeTimeline() throws TwitterException {
-        String tweet = "This is a test.";
+        String[] tweets = {"This is a test.", "Tweeting my cares away.","A tweet a day doth a healthy bird make."};
         String name = "Ben";
         String screenName = "BenLeethium";
         String profileImageURL = "ben.com";
         Date date = new Date();
 
-        // Construct the list of twitter4j.Statuses to be mocked
-        TestStatus testStatus = new TestStatus();
-        TestUser testUser = new TestUser();
-
-        testUser.setName(name);
-        testUser.setScreenName(screenName);
-        testUser.setProfileImageURL(profileImageURL);
-        testStatus.setText(tweet);
-        testStatus.setCreatedAt(date);
-        testStatus.setUser(testUser);
+        // twitterInstance.getHomeTimeline() returns a ResponseList
         ResponseList<twitter4j.Status> testStatuses = new TestResponseList<>();
-        testStatuses.add(testStatus);
+        // TwitterService.getHomeTimeline() returns a List<Status>
+        List<Status> expectedResults = new ArrayList<>();
 
+        TestStatus testStatus;
+        TestUser testUser;
+        User parsedUser; // stripped version of a twitter4j.User
+        Status parsedStatus; // stripped version of a twitter4j.Status
 
-        // Construct the expected benleethium Status to be returned by Twitter Service
-        User parsedUser = new User(name, screenName, profileImageURL);
-        List<Status> expectedResults= new ArrayList<>();
-        expectedResults.add(new Status(tweet, date, parsedUser));
+        // Construct the list of twitter4j.Statuses to be mocked
+        for (int i=0; i<tweets.length;i++) {
+            testStatus = new TestStatus();
+            testUser = new TestUser();
 
+            // Construct twitter4j's response
+            testUser.setName(name);
+            testUser.setScreenName(screenName);
+            testUser.setProfileImageURL(profileImageURL);
+            testStatus.setText(tweets[i]);
+            testStatus.setCreatedAt(date);
+            testStatus.setUser(testUser);
+
+            // Construct twitterService's expected response
+            parsedUser = new User(name, screenName, profileImageURL);
+            parsedStatus = new Status(tweets[i], date, parsedUser);
+
+            // save to list
+            testStatuses.add(testStatus);
+            expectedResults.add(parsedStatus);
+        }
         // Mock dependency's logic
         Mockito.when(twitterInstance.getHomeTimeline()).thenReturn(testStatuses);
 
-        assertEquals(expectedResults.get(0), twitterService.getHomeTimeline().get(0));;
+        // Verify values
+        for (int i=0; i<tweets.length; i++) {
+            assertEquals(expectedResults.get(i), twitterService.getHomeTimeline().get(i));
+        }
     }
 
     @Test
