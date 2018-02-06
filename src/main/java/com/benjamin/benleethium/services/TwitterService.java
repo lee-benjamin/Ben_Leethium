@@ -47,8 +47,8 @@ public class TwitterService {
         if (this.validateTweet(tweet)) {
             logger.debug("Tweet valid. Posting tweet...");
             return Stream.of(twitterInstance.updateStatus(tweet))
-                                        .map(s -> new Status(s))
                                         .findFirst()
+                                        .map(s -> new Status(s))
                                         .orElseThrow(NoSuchElementException::new);
         }
         logger.debug("Tweet NOT validated, malformed tweet body.");
