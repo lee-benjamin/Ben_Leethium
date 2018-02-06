@@ -1,14 +1,11 @@
 package com.benjamin.benleethium.services;
 
 import org.junit.Before;
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static javafx.beans.binding.Bindings.when;
 
 import com.benjamin.benleethium.models.Status;
 import com.benjamin.benleethium.models.User;
@@ -17,11 +14,7 @@ import com.benjamin.benleethium.models.TestUser;
 
 import java.util.Date;
 
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import static org.mockito.Mockito.mock;
+import org.mockito.Mockito;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -32,8 +25,8 @@ public class TwitterServiceTest {
     private TwitterService twitterService;
 
     @Before
-    public void setUp() throws Exception {
-        twitterInstance = mock(Twitter.class);
+    public void setUp() {
+        twitterInstance = Mockito.mock(Twitter.class);
         twitterService = TwitterService.getTestInstance(twitterInstance);
     }
 
@@ -69,14 +62,11 @@ public class TwitterServiceTest {
     }
     @Test
     public void testUpdateStatus() throws TwitterException {
-        // Create a new Status class (for testing) that implements the twitter4j.Status inteface
-        // Mock the return of this Status, but the status itself is not mocked
-
         String tweet = "This is a test.";
-        Date date = new Date();
         String name = "Ben";
         String screenName = "BenLeethium";
         String profileImageURL = "ben.com";
+        Date date = new Date();
 
         // Construct the twitter4j.Status to be mocked
         TestStatus testStatus = new TestStatus();
@@ -93,16 +83,12 @@ public class TwitterServiceTest {
         User parsedUser = new User(name, screenName, profileImageURL);
         Status expectedResult = new Status(tweet, date, parsedUser);
 
-        //when(twitterInstance.updateStatus(tweet)).thenReturn(testStatus);
+        // Mock dependency's logic
+        Mockito.when(twitterInstance.updateStatus(tweet)).thenReturn(testStatus);
 
-        //when(status.getText()).thenReturn(tweet);
-        //when(status.getCreatedAt()).thenReturn(date);
-        //when(status.getUser()).thenReturn(user);
-        //when(user.getName()).thenReturn("Ben");
-        //when(user.getScreenName()).thenReturn("BenLeethium");
-        //when(user.getProfileImageURL()).thenReturn("ben.com");
-
-        //assertEquals(expectedResult, twitterService.updateStatus(tweet));
+        // Verify values
+        twitterService.updateStatus(tweet);
+        assertEquals(expectedResult, twitterService.updateStatus(tweet));
     }
 
     @Test
