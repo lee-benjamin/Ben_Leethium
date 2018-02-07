@@ -116,7 +116,7 @@ public class TwitterServiceTest {
         Status parsedStatus; // stripped version of a twitter4j.Status
 
         // Construct the list of twitter4j.Statuses to be mocked
-        for (int i=0; i<tweets.length;i++) {
+        for (String tweet : tweets) {
             statusFixture = new StatusFixture();
             userFixture = new UserFixture();
 
@@ -124,13 +124,13 @@ public class TwitterServiceTest {
             userFixture.setName(name);
             userFixture.setScreenName(screenName);
             userFixture.setProfileImageURL(profileImageURL);
-            statusFixture.setText(tweets[i]);
+            statusFixture.setText(tweet);
             statusFixture.setCreatedAt(date);
             statusFixture.setUser(userFixture);
 
             // Construct twitterService's expected response
             parsedUser = new User(name, screenName, profileImageURL);
-            parsedStatus = new Status(tweets[i], date, parsedUser);
+            parsedStatus = new Status(tweet, date, parsedUser);
 
             // save to list
             testStatuses.add(statusFixture);
