@@ -48,10 +48,7 @@ public class TwitterServiceTest {
 
     @Test
     public void testValidateTweetMaxChar() {
-        StringBuilder badTweet = new StringBuilder();
-        for (int i=0; i<=TwitterService.MAX_CHAR_LIMIT; i++) {
-            badTweet.append(".");
-        }
+        String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
         assertFalse("Tweet exceeds maximum character limit.",
             twitterService.validateTweet(badTweet.toString()));
     }
@@ -101,6 +98,11 @@ public class TwitterServiceTest {
 
         // Verify values
         assertEquals(expectedResult, twitterService.updateStatus(tweet));
+    }
+
+    @Test
+    public void testUpdateStatusMalformed() throws TwitterException {
+        String tweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
     }
 
     @Test
