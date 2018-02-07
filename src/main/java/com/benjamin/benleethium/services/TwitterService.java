@@ -10,7 +10,6 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -21,17 +20,17 @@ public class TwitterService {
     public static final int MAX_CHAR_LIMIT = 280;
     private final Logger logger = LoggerFactory.getLogger(TwitterService.class);
     private Twitter twitterInstance;
-    private static TwitterService twitterServiceInstance;
+    private static TwitterService twitterService;
 
     private TwitterService(Twitter twitterInstance) {
         this.twitterInstance = twitterInstance;
     }
 
     public static TwitterService getInstance() {
-        if (twitterServiceInstance == null) {
-            twitterServiceInstance = new TwitterService(BenLeethiumApplication.twitterFactory.getInstance());
+        if (twitterService == null) {
+            twitterService = new TwitterService(BenLeethiumApplication.twitterFactory.getInstance());
         }
-        return twitterServiceInstance;
+        return twitterService;
     }
 
     static TwitterService getTestInstance(Twitter newTwitterInstance) {
