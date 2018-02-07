@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -31,13 +32,18 @@ public class TwitterServiceTest {
 
     @Before
     public void setUp() {
-        twitterInstance = Mockito.mock(Twitter.class);
+        twitterInstance = mock(Twitter.class);
         twitterService = TwitterService.getTestInstance(twitterInstance);
     }
 
     @Test
     public void testGetTestInstance() {
-        assertNotNull(twitterService);
+        assertNotNull(TwitterService.getTestInstance(twitterInstance));
+    }
+
+    @Test
+    public void testGetInstance() {
+        //assertNotNull(TwitterService.getInstance());
     }
 
     @Test
