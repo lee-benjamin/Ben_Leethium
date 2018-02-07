@@ -60,9 +60,11 @@ public class BenLeethiumResourceTest {
             // save to list
             expectedResults.add(parsedStatus);
         }
+        // mock Response from REST endpoint
         Mockito.when(twitterService.getHomeTimeline()).thenReturn(expectedResults);
         Response response = benLeethiumResource.getHomeTimeline();
 
+        // verify Response values match Status values
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         List<Status> statuses = (List<Status>) response.getEntity();
         for (int i=0; i<tweets.length; i++) {
@@ -71,7 +73,26 @@ public class BenLeethiumResourceTest {
     }
 
     @Test
-    public void testUpdateStatus(){}
+    public void testUpdateStatus() throws TwitterException {
+        String tweet = "A tweet a day doth a healthy bird make.";
+        String name = "Ben";
+        String screenName = "BenLeethium";
+        String profileImageURL = "ben.com";
+        Date date = new Date();
+
+        User parsedUser; // stripped version of a twitter4j.User
+        Status parsedStatus; // stripped version of a twitter4j.Status
+        parsedUser = new User(name, screenName, profileImageURL);
+        parsedStatus = new Status(tweet, date, parsedUser);
+
+        // mock Response from REST endpoint
+        Mockito.when(twitterService.updateStatus(tweet)).thenReturn(parsedStatus);
+        Response response = benLeethiumResource.updateStatus(tweet);
+
+        // verify Response values match Status values
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        assertEquals(tweet, ((Status) response.getEntity()).getText());
+    }
 
     @Test
     public void testSearchHomeTimeline() {}

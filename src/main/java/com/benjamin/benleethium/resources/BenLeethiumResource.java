@@ -29,6 +29,7 @@ public class BenLeethiumResource {
 
     final Logger logger = LoggerFactory.getLogger(BenLeethiumResource.class);
     private TwitterService twitterService;
+
     public BenLeethiumResource(TwitterService twitterService) {
         this.twitterService = twitterService;
     }
@@ -55,7 +56,7 @@ public class BenLeethiumResource {
     @Timed
     public Response updateStatus(@FormParam("message") String message) {
         try {
-            Status status = twitterService.getInstance().updateStatus(message);
+            Status status = this.twitterService.updateStatus(message);
             logger.debug("Successfully posted tweet.");
             return Response.ok(status).build();
         } catch (TwitterException|NoSuchElementException e) {
@@ -77,7 +78,7 @@ public class BenLeethiumResource {
     @Timed
     public Response searchHomeTimeline(@QueryParam("keyword") String keyword) {
         try {
-            List<Status> searchResults = twitterService.getInstance().searchHomeTimeline(keyword);
+            List<Status> searchResults = this.twitterService.searchHomeTimeline(keyword);
             logger.debug("Search returned.");
             return Response.ok(searchResults).build();
         } catch (TwitterException e) {
