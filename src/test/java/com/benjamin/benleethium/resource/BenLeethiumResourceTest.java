@@ -94,6 +94,23 @@ public class BenLeethiumResourceTest {
     }
 
     @Test
+    public void testUpdateStatusException() throws TwitterException {
+        String tweet = "tweet";
+        Mockito.when(twitterService.updateStatus(tweet)).thenThrow(TwitterException.class);
+        Response response = benLeethiumResource.updateStatus(tweet);
+
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
+    }
+
+    @Test
+    public void testUpdateStatusMalformed() throws TwitterException {
+        String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
+        Mockito.when(twitterService.updateStatus(badTweet)).thenThrow(RuntimeException.class);
+        Response response = benLeethiumResource.updateStatus(badTweet);
+        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+    }
+
+    @Test
     public void testSearchHomeTimeline() throws TwitterException {
         String[] tweets = {"This is a test.", "Tweeting my cares away.","A tweet a day doth a healthy bird make."};
         String query = "tweet"; // No search will actually occur during this test
@@ -125,6 +142,14 @@ public class BenLeethiumResourceTest {
         for (int i=0; i<tweets.length; i++) {
             assertEquals(tweets[i], statuses.get(i).getText());
         }
+    }
+
+    @Test
+    public void testSearchHomeTimelineException() throws TwitterException {
+        String tweet = "tweet";
+        Mockito.when(twitterService.searchHomeTimeline(tweet)).thenThrow(TwitterException.class);
+        Response response = benLeethiumResource.searchHomeTimeline(tweet);
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
     }
 }
 
