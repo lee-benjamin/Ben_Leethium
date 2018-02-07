@@ -100,9 +100,10 @@ public class TwitterServiceTest {
         assertEquals(expectedResult, twitterService.updateStatus(tweet));
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testUpdateStatusMalformed() throws TwitterException {
-        String tweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
+        String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
+        twitterService.updateStatus(badTweet);
     }
 
     @Test
