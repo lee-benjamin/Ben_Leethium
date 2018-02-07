@@ -56,7 +56,7 @@ public class BenLeethiumResource {
     @Timed
     public Response updateStatus(@FormParam("message") String message) {
         try {
-            Status status = this.twitterService.updateStatus(message);
+            Status status = twitterService.updateStatus(message);
             logger.debug("Successfully posted tweet.");
             return Response.ok(status).build();
         } catch (TwitterException|NoSuchElementException e) {
@@ -78,7 +78,7 @@ public class BenLeethiumResource {
     @Timed
     public Response searchHomeTimeline(@QueryParam("keyword") String keyword) {
         try {
-            List<Status> searchResults = this.twitterService.searchHomeTimeline(keyword);
+            List<Status> searchResults = twitterService.searchHomeTimeline(keyword);
             logger.debug("Search returned.");
             return Response.ok(searchResults).build();
         } catch (TwitterException e) {
