@@ -73,10 +73,8 @@ public class BenLeethiumResourceTest {
         String profileImageURL = "ben.com";
         Date date = new Date();
 
-        User parsedUser; // stripped version of a twitter4j.User
-        Status parsedStatus; // stripped version of a twitter4j.Status
-        parsedUser = new User(name, screenName, profileImageURL);
-        parsedStatus = new Status(tweet, date, parsedUser);
+        User parsedUser = new User(name, screenName, profileImageURL);
+        Status parsedStatus = new Status(tweet, date, parsedUser);
 
         // mock Response from REST endpoint
         Mockito.when(twitterService.updateStatus(tweet)).thenReturn(parsedStatus);
@@ -96,7 +94,6 @@ public class BenLeethiumResourceTest {
         String profileImageURL = "ben.com";
         Date date = new Date();
 
-        // TwitterService.getHomeTimeline() returns a List<Status>
         List<Status> expectedResults = new ArrayList<>();
 
         User parsedUser; // stripped version of a twitter4j.User
