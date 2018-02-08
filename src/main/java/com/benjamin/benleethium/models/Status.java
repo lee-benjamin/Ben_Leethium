@@ -1,6 +1,7 @@
 package com.benjamin.benleethium.models;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Status {
 
@@ -48,18 +49,17 @@ public class Status {
 
     @Override
     public boolean equals(Object o) {
-        Status s = (Status) o;
-        return this.text.equals(s.getText())
-            && this.createdAt.equals(s.getCreatedAt())
-            && this.user.equals(s.getUser());
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Status status = (Status) o;
+        return Objects.equals(text, status.text) &&
+                Objects.equals(createdAt, status.createdAt) &&
+                Objects.equals(user, status.user);
     }
 
     @Override
     public int hashCode() {
-        int hash = 32887; // a happy prime
-        hash = hash * 54941 + this.text.hashCode();
-        hash = hash * 54941 + this.createdAt.hashCode();
-        hash = hash * 54941 + this.user.hashCode();
-        return hash;
+
+        return Objects.hash(text, createdAt, user);
     }
 }

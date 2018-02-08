@@ -1,5 +1,7 @@
 package com.benjamin.benleethium.models;
 
+import java.util.Objects;
+
 public class User {
 
     private String name;
@@ -46,18 +48,17 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-       User u = (User) o;
-      return this.name.equals(u.getName())
-          && this.screenName.equals(u.getScreenName())
-          && this.profileImageURL.equals(u.getProfileImageURL());
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name) &&
+                Objects.equals(screenName, user.screenName) &&
+                Objects.equals(profileImageURL, user.profileImageURL);
     }
 
     @Override
     public int hashCode() {
-        int hash = 32887; // a happy prime
-        hash = hash * 54941 + this.name.hashCode();
-        hash = hash * 54941 + this.screenName.hashCode();
-        hash = hash * 54941 + this.profileImageURL.hashCode();
-        return hash;
+
+        return Objects.hash(name, screenName, profileImageURL);
     }
 }

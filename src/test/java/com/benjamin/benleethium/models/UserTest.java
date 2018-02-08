@@ -1,21 +1,12 @@
 package com.benjamin.benleethium.models;
 
-import com.benjamin.benleethium.resources.BenLeethiumResource;
-import com.benjamin.benleethium.services.TwitterService;
 import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import com.benjamin.benleethium.models.User;
-
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.mockito.Mockito;
 
 public class UserTest {
 
@@ -27,12 +18,12 @@ public class UserTest {
     }
 
     @Test
-    public void testUserDefault() {
+    public void testUserConstructDefault() {
         assertNotNull(new User());
     }
 
     @Test
-    public void testUser() {
+    public void testUserConstructor() {
         String name = "Ben";
         String screenName = "BenLeethium";
         String profileImageURL = "ben.com";
@@ -70,7 +61,6 @@ public class UserTest {
         String screenName = "BenLeethium";
         String url = "ben.com";
 
-        // At some point each field must not be equal to get full coverage
         user = new User(name, screenName, url);
         User otherUser = new User(name, screenName, url);
         assertEquals(user, otherUser);
@@ -78,12 +68,16 @@ public class UserTest {
 
     @Test
     public void testEqualsGranular() {
+        // At some point each field must be singularly not equal to get full coverage
+        // Additionally, testing against a different class as well as null
+        assertNotEquals(user, null);
+        assertNotEquals(user, new Status());
+
         String name = "Ben";
         String screenName = "BenLeethium";
         String url = "ben.com";
         String nonsense = "what a great test this is";
 
-        // At some point each field must be singularly not equal to get full coverage
         user = new User(name, screenName, url);
         User otherUser = new User(nonsense, screenName, url);
         assertNotEquals(user, otherUser);
@@ -95,6 +89,18 @@ public class UserTest {
         otherUser.setScreenName(screenName);
         otherUser.setProfileImageURL(nonsense);
         assertNotEquals(user, otherUser);
+    }
+
+    @Test
+    public void testEqualsSymmetric() {
+        String name = "Ben";
+        String screenName = "BenLeethium";
+        String url = "ben.com";
+        user = new User(name, screenName, url);
+        User otherUser = new User(name, screenName, url);
+
+        assertTrue(otherUser.equals(user)); // reverse is tested in testEquals()
+        assertTrue(user.hashCode() == otherUser.hashCode());
     }
 }
 
