@@ -38,7 +38,6 @@ http://localhost:8081/healthcheck
 
 http://localhost:8081/metrics
 
-
 #### Logging
 
 Should you want to change the logging level refer to the following example and replace the level with whatever you desire.
@@ -46,3 +45,9 @@ Should you want to change the logging level refer to the following example and r
 `java -Ddw.logging.level=DEBUG target/Ben_Leethium-1.0-SNAPSHOT.jar server benleethium.yml`
 
 It defaults to INFO.
+
+### Code Coverage
+Assuming you have already run `mvn package` (which runs the tests as well), you can find code coverage under `target/site/jacoco`.
+
+To open the files in your browser, run `open target/site/jacoco/index.html`
+
