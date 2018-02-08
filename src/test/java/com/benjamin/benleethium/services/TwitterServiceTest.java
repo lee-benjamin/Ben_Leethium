@@ -42,11 +42,6 @@ public class TwitterServiceTest {
     }
 
     @Test
-    public void testGetInstance() {
-        //assertNotNull(TwitterService.getInstance());
-    }
-
-    @Test
     public void testValidateTweetMaxChar() {
         String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
         assertFalse("Tweet exceeds maximum character limit.",
