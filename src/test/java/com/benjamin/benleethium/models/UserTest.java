@@ -69,14 +69,14 @@ public class UserTest {
     @Test
     public void testEqualsGranular() {
         // At some point each field must be singularly not equal to get full coverage
-        // Additionally, testing against a different class as well as null
-        assertNotEquals(user, null);
-        assertNotEquals(user, new Status());
-
+        // Additionally, must test against a different class as well as null
         String name = "Ben";
         String screenName = "BenLeethium";
         String url = "ben.com";
         String nonsense = "what a great test this is";
+
+        assertNotEquals(user, null);
+        assertNotEquals(user, new Status());
 
         user = new User(name, screenName, url);
         User otherUser = new User(nonsense, screenName, url);

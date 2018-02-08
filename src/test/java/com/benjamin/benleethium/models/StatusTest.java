@@ -65,37 +65,43 @@ public class StatusTest {
         assertEquals(status, otherStatus);
     }
 
-//    @Test
-//    public void testEqualsGranular() {
-//        String text = "test";
-//        Date date = new Date();
-//        User user = new User();
-//
-//        status = new Status(text, date, user);
-//        otherStatus = new Status(text, date, user);
-//        assertEquals(status, otherStatus);
-//
-//        otherUser.setName(name);
-//        otherUser.setScreenName(nonsense);
-//        assertNotEquals(user, otherUser);
-//
-//        otherUser.setScreenName(screenName);
-//        otherUser.setProfileImageURL(nonsense);
-//        assertNotEquals(user, otherUser);
-//    }
+    @Test
+    public void testEqualsGranular() {
+        // At some point each field must be singularly not equal to get full coverage
+        // Additionally, must test against a different class as well as null
+        String text = "text";
+        Date date = new Date();
+        User user = new User();
 
-//    @Test
-//    public void testEqualsSymmetric() {
-//        String text = "test";
-//        Date date = new Date();
-//        User user = new User();
-//
-//        status = new Status(text, date, user);
-//        Status otherStatus = new Status(text, date, user);
-//
-//        assertTrue(otherStatus.equals(status)); // reverse is tested in testEquals
-//        assertTrue(status.hashCode() == otherStatus.hashCode());
-//    }
+        assertNotEquals(status, null);
+        assertNotEquals(status, new User());
+
+        status = new Status(text, date, user);
+        assertEquals(status,status);
+        Status otherStatus = new Status("diff text", date, user);
+        assertNotEquals(status, otherStatus);
+
+        otherStatus.setText(text);
+        date.setMonth(5);
+        otherStatus.setCreatedAt(date);
+        assertNotEquals(user, otherStatus);
+
+        user.setName("Ben");
+        otherStatus = new Status(text, new Date(), user);
+        assertNotEquals(user, otherStatus);
+    }
+
+    @Test
+    public void testEqualsSymmetric() {
+        String text = "test";
+        Date date = new Date();
+        User user = new User();
+
+        status = new Status(text, date, user);
+        Status otherStatus = new Status(text, date, user);
+
+        assertTrue(otherStatus.equals(status)); // reverse is tested in testEquals
+        assertTrue(status.hashCode() == otherStatus.hashCode());
+    }
 }
-
 
