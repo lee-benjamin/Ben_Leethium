@@ -71,7 +71,7 @@ public class StatusTest {
         // Additionally, must test against a different class as well as null
         String text = "text";
         Date date = new Date();
-        User user = new User();
+        User user = new User("Ben","BenLeethium", "ben.com");
 
         assertNotEquals(status, null);
         assertNotEquals(status, new User());
@@ -82,13 +82,11 @@ public class StatusTest {
         assertNotEquals(status, otherStatus);
 
         otherStatus.setText(text);
-        date.setMonth(5);
-        otherStatus.setCreatedAt(date);
-        assertNotEquals(user, otherStatus);
+        otherStatus.setCreatedAt(new Date(1,1,1));
+        assertNotEquals(status, otherStatus);
 
-        user.setName("Ben");
-        otherStatus = new Status(text, new Date(), user);
-        assertNotEquals(user, otherStatus);
+        otherStatus = new Status(text, date, new User());
+        assertNotEquals(status, otherStatus);
     }
 
     @Test
