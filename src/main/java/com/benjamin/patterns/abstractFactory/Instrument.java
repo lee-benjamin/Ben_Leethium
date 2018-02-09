@@ -1,4 +1,4 @@
-package com.benjamin.patterns.factory;
+package com.benjamin.patterns.abstractFactory;
 
 public abstract class Instrument {
     public abstract void play();
@@ -17,4 +17,3 @@ class Triangle extends Instrument {
         System.out.println("The Triangle says: DINGDINGDINGDINGDINGDINGDINGDINGDINGDING");
     }
 }
-
