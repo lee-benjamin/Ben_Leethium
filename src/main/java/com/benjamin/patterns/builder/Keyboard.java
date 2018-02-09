@@ -5,6 +5,8 @@ public class Keyboard {
     private String model;
     private String layout;
     private String switchType;
+
+    // optional paramters
     private boolean isCompatibleAT;
     private boolean isCompatiblePS2;
 
@@ -34,6 +36,8 @@ public class Keyboard {
         private String model;
         private String layout;
         private String switchType;
+
+        // optional paramters
         private boolean isCompatibleAT;
         private boolean isCompatiblePS2;
 
