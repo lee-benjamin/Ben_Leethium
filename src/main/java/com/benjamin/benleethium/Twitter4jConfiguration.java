@@ -25,15 +25,30 @@ public class Twitter4jConfiguration {
         return consumerKey;
     }
 
+    void setConsumerKey(String consumerKey) {
+        this.consumerKey = consumerKey;
+    }
+
     public String getConsumerSecret() {
         return consumerSecret;
     }
 
+    void setConsumerSecret(String consumerSecret) {
+        this.consumerSecret = consumerSecret;
+    }
     public String getAccessToken() {
         return accessToken;
     }
 
+    void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
     public String getAccessTokenSecret() {
         return accessTokenSecret;
+    }
+
+    void setAccessTokenSecret(String accessTokenSecret) {
+        this.accessTokenSecret = accessTokenSecret;
     }
 }

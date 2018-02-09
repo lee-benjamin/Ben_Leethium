@@ -28,9 +28,6 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
     }
 
     @Override
-    public void initialize(Bootstrap<BenLeethiumConfiguration> bootstrap) {}
-
-    @Override
     public void run(BenLeethiumConfiguration configuration,
                     Environment environment) {
         ConfigurationBuilder cb = new ConfigurationBuilder();

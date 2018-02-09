@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -31,21 +32,18 @@ public class TwitterServiceTest {
 
     @Before
     public void setUp() {
-        twitterInstance = Mockito.mock(Twitter.class);
+        twitterInstance = mock(Twitter.class);
         twitterService = TwitterService.getTestInstance(twitterInstance);
     }
 
     @Test
     public void testGetTestInstance() {
-        assertNotNull(twitterService);
+        assertNotNull(TwitterService.getTestInstance(twitterInstance));
     }
 
     @Test
     public void testValidateTweetMaxChar() {
-        StringBuilder badTweet = new StringBuilder();
-        for (int i=0; i<=TwitterService.MAX_CHAR_LIMIT; i++) {
-            badTweet.append(".");
-        }
+        String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
         assertFalse("Tweet exceeds maximum character limit.",
             twitterService.validateTweet(badTweet.toString()));
     }
@@ -95,6 +93,12 @@ public class TwitterServiceTest {
 
         // Verify values
         assertEquals(expectedResult, twitterService.updateStatus(tweet));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testUpdateStatusMalformed() throws TwitterException {
+        String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
+        twitterService.updateStatus(badTweet);
     }
 
     @Test
