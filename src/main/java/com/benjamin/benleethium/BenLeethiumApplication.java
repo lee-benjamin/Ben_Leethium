@@ -39,10 +39,8 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
             .setOAuthConsumerSecret(twitter4jConf.getConsumerSecret())
             .setOAuthAccessToken(twitter4jConf.getAccessToken())
             .setOAuthAccessTokenSecret(twitter4jConf.getAccessTokenSecret());
-        //twitterFactory = new TwitterFactory(cb.build());
         logger.info("Twitter OAuth credentials successfully loaded from yml file.");
 
-        //final BenLeethiumResource resource = new BenLeethiumResource(TwitterService.getInstance());
         TwitterModule twitter = new TwitterModule(cb);
         BenLeethiumAppComponent component = DaggerBenLeethiumAppComponent.builder()
             .twitterModule(twitter)

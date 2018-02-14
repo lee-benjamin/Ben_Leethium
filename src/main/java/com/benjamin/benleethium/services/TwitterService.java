@@ -28,17 +28,6 @@ public class TwitterService {
         this.twitterInstance = twitterInstance;
     }
 
-    //public static TwitterService getInstance() {
-    //    if (twitterService == null) {
-    //        twitterService = new TwitterService(BenLeethiumApplication.twitterFactory.getInstance());
-    //    }
-    //    return twitterService;
-    //}
-
-    static TwitterService getTestInstance(Twitter newTwitterInstance) {
-        return new TwitterService(newTwitterInstance);
-    }
-
     public boolean validateTweet(String tweet) {
         return (tweet != null && tweet.length() <= MAX_CHAR_LIMIT);
     }

@@ -33,12 +33,7 @@ public class TwitterServiceTest {
     @Before
     public void setUp() {
         twitterInstance = mock(Twitter.class);
-        twitterService = TwitterService.getTestInstance(twitterInstance);
-    }
-
-    @Test
-    public void testGetTestInstance() {
-        assertNotNull(TwitterService.getTestInstance(twitterInstance));
+        twitterService = new TwitterService(twitterInstance);
     }
 
     @Test
