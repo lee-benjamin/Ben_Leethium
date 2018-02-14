@@ -1,6 +1,5 @@
 package com.benjamin.benleethium.services;
 
-import com.benjamin.benleethium.BenLeethiumApplication;
 import com.benjamin.benleethium.models.Status;
 
 import org.slf4j.Logger;
