@@ -20,7 +20,6 @@ public class TwitterService {
     public static final int MAX_CHAR_LIMIT = 280;
     private final Logger logger = LoggerFactory.getLogger(TwitterService.class);
     private Twitter twitterInstance;
-    private static TwitterService twitterService;
 
     @Inject
     public TwitterService(Twitter twitterInstance) {
@@ -31,7 +30,7 @@ public class TwitterService {
         return (tweet != null && tweet.length() <= MAX_CHAR_LIMIT);
     }
 
-    public Status updateStatus(String tweet) throws TwitterException, NoSuchElementException, RuntimeException {
+    public Status updateStatus(String tweet) throws TwitterException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
         if (this.validateTweet(tweet)) {
             logger.debug("Tweet valid. Posting tweet...");

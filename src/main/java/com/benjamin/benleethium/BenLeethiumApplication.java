@@ -14,7 +14,6 @@ import twitter4j.TwitterFactory;
 public class BenLeethiumApplication extends Application<BenLeethiumConfiguration> {
 
     final Logger logger = LoggerFactory.getLogger(BenLeethiumApplication.class);
-    public static TwitterFactory twitterFactory;
 
     public static void main(String[] args) throws Exception {
         new BenLeethiumApplication().run(args);
