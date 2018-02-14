@@ -31,6 +31,9 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
     @Override
     public void run(BenLeethiumConfiguration configuration,
                     Environment environment) {
+
+        configureCors(environment);
+
         TwitterModule twitter = new TwitterModule(configuration.getTwitter4jConfiguration());
         logger.info("Twitter OAuth credentials successfully loaded from yml file.");
         BenLeethiumAppComponent component = DaggerBenLeethiumAppComponent.builder()
@@ -45,11 +48,11 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
         environment.healthChecks().register("Server Up", healthCheck);
     }
 
-    private void configureCors(Environment environment) {
+    private static void configureCors(Environment environment) {
         final FilterRegistration.Dynamic cors =
             environment.servlets().addFilter("CORSFilter", CrossOriginFilter.class);
 
-        cors.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "http://localhost:9000");
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
         cors.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "X-Requested-With,Content-Type,Accept,Origin,Authorization");
         cors.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET");
         cors.setInitParameter(CrossOriginFilter.ALLOW_CREDENTIALS_PARAM, "true");
