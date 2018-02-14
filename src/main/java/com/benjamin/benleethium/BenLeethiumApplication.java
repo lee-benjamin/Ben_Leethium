@@ -6,8 +6,14 @@ import com.benjamin.benleethium.health.TemplateHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 
+import org.eclipse.jetty.servlets.CrossOriginFilter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import java.util.EnumSet;
 
 public class BenLeethiumApplication extends Application<BenLeethiumConfiguration> {
 
@@ -37,5 +43,18 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
 
         final TemplateHealthCheck healthCheck = new TemplateHealthCheck();
         environment.healthChecks().register("Server Up", healthCheck);
+    }
+
+    private void configureCors(Environment environment) {
+        final FilterRegistration.Dynamic cors =
+            environment.servlets().addFilter("CORSFilter", CrossOriginFilter.class);
+
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "http://localhost:9000");
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "X-Requested-With,Content-Type,Accept,Origin,Authorization");
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET");
+        cors.setInitParameter(CrossOriginFilter.ALLOW_CREDENTIALS_PARAM, "true");
+
+        // Add URL mapping
+        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
     }
 }
