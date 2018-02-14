@@ -31,7 +31,7 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
     @Override
     public void run(BenLeethiumConfiguration configuration,
                     Environment environment) {
-
+        // Allow Cross Origin Resource Sharing
         configureCors(environment);
 
         TwitterModule twitter = new TwitterModule(configuration.getTwitter4jConfiguration());
