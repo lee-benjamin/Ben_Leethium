@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-
 public class BenLeethiumApplication extends Application<BenLeethiumConfiguration> {
 
     final Logger logger = LoggerFactory.getLogger(BenLeethiumApplication.class);
@@ -32,8 +31,10 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
     @Override
     public void run(BenLeethiumConfiguration configuration,
                     Environment environment) {
+        // Get keys from yml file
         Twitter4jConfiguration twitter4jConf = configuration.getTwitter4jConfiguration();
 
+        // Creating a new TwitterFactory via ConfigurationBuilder
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setOAuthConsumerKey(twitter4jConf.getConsumerKey())
             .setOAuthConsumerSecret(twitter4jConf.getConsumerSecret())
@@ -41,10 +42,12 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
             .setOAuthAccessTokenSecret(twitter4jConf.getAccessTokenSecret());
         logger.info("Twitter OAuth credentials successfully loaded from yml file.");
 
-        TwitterModule twitter = new TwitterModule(cb);
+        TwitterModule twitter = new TwitterModule(cb); // Fetches a Twitter Instance
         BenLeethiumAppComponent component = DaggerBenLeethiumAppComponent.builder()
             .twitterModule(twitter)
             .build();
+
+        // Register resources
         final BenLeethiumResource resource = component.getBenLeethiumResource();
         environment.jersey().register(resource);
 
