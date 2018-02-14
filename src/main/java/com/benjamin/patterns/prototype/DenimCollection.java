@@ -24,7 +24,7 @@ public class DenimCollection implements Cloneable {
         collection.add("Hinoya x Warehouse 1003HXX");
         collection.add("Sugarcane 1947");
         collection.add("Studio D'Artisan 103");
-        collection.add("Fullcount 1105");
+        collection.add("Fullcount 1101");
     }
 
     public List<String> getCollection() {

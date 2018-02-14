@@ -1,6 +1,5 @@
 package com.benjamin.benleethium.services;
 
-import com.benjamin.benleethium.BenLeethiumApplication;
 import com.benjamin.benleethium.models.Status;
 
 import org.slf4j.Logger;
@@ -14,34 +13,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.inject.Inject;
 
 public class TwitterService {
 
     public static final int MAX_CHAR_LIMIT = 280;
     private final Logger logger = LoggerFactory.getLogger(TwitterService.class);
     private Twitter twitterInstance;
-    private static TwitterService twitterService;
 
-    private TwitterService(Twitter twitterInstance) {
+    @Inject
+    public TwitterService(Twitter twitterInstance) {
         this.twitterInstance = twitterInstance;
-    }
-
-    public static TwitterService getInstance() {
-        if (twitterService == null) {
-            twitterService = new TwitterService(BenLeethiumApplication.twitterFactory.getInstance());
-        }
-        return twitterService;
-    }
-
-    static TwitterService getTestInstance(Twitter newTwitterInstance) {
-        return new TwitterService(newTwitterInstance);
     }
 
     public boolean validateTweet(String tweet) {
         return (tweet != null && tweet.length() <= MAX_CHAR_LIMIT);
     }
 
-    public Status updateStatus(String tweet) throws TwitterException, NoSuchElementException, RuntimeException {
+    public Status updateStatus(String tweet) throws TwitterException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
         if (this.validateTweet(tweet)) {
             logger.debug("Tweet valid. Posting tweet...");

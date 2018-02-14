@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -33,12 +32,7 @@ public class TwitterServiceTest {
     @Before
     public void setUp() {
         twitterInstance = mock(Twitter.class);
-        twitterService = TwitterService.getTestInstance(twitterInstance);
-    }
-
-    @Test
-    public void testGetTestInstance() {
-        assertNotNull(TwitterService.getTestInstance(twitterInstance));
+        twitterService = new TwitterService(twitterInstance);
     }
 
     @Test
