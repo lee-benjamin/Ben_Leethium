@@ -9,8 +9,6 @@ import io.dropwizard.setup.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import twitter4j.TwitterFactory;
-
 public class BenLeethiumApplication extends Application<BenLeethiumConfiguration> {
 
     final Logger logger = LoggerFactory.getLogger(BenLeethiumApplication.class);
