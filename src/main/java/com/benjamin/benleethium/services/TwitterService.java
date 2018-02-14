@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.inject.Inject;
 
 public class TwitterService {
 
@@ -22,16 +23,17 @@ public class TwitterService {
     private Twitter twitterInstance;
     private static TwitterService twitterService;
 
-    private TwitterService(Twitter twitterInstance) {
+    @Inject
+    public TwitterService(Twitter twitterInstance) {
         this.twitterInstance = twitterInstance;
     }
 
-    public static TwitterService getInstance() {
-        if (twitterService == null) {
-            twitterService = new TwitterService(BenLeethiumApplication.twitterFactory.getInstance());
-        }
-        return twitterService;
-    }
+    //public static TwitterService getInstance() {
+    //    if (twitterService == null) {
+    //        twitterService = new TwitterService(BenLeethiumApplication.twitterFactory.getInstance());
+    //    }
+    //    return twitterService;
+    //}
 
     static TwitterService getTestInstance(Twitter newTwitterInstance) {
         return new TwitterService(newTwitterInstance);

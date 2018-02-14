@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.NoSuchElementException;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -30,6 +31,7 @@ public class BenLeethiumResource {
     final Logger logger = LoggerFactory.getLogger(BenLeethiumResource.class);
     private TwitterService twitterService;
 
+    @Inject
     public BenLeethiumResource(TwitterService twitterService) {
         this.twitterService = twitterService;
     }
