@@ -9,7 +9,6 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-      <jetty.version>9.4.8.v20171121</jetty.version>
       <dagger.version>2.13</dagger.version>
       <junit-jupiter.version>5.0.1</junit-jupiter.version>
       <junit-jupiter-engine.version>5.0.1</junit-jupiter-engine.version>
@@ -26,11 +25,6 @@
     </properties>
 
     <dependencies>
-      <dependency>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-servlets</artifactId>
-        <version>${jetty.version}</version>
-      </dependency>
       <dependency>
         <groupId>com.google.dagger</groupId>
         <artifactId>dagger</artifactId>
