@@ -65,6 +65,7 @@ public class TwitterServiceTest {
         String name = "Ben";
         String screenName = "BenLeethium";
         String profileImageURL = "ben.com";
+        String id = "0";
         Date date = new Date();
 
         // Construct the twitter4j.Status to be mocked
@@ -80,7 +81,7 @@ public class TwitterServiceTest {
 
         // Construct the expected Status to be returned by TwitterService
         User parsedUser = new User(name, screenName, profileImageURL);
-        Status expectedResult = new Status(tweet, date, 0, parsedUser);
+        Status expectedResult = new Status(tweet, date, id, parsedUser);
 
         // Mock dependency's logic
         Mockito.when(twitterInstance.updateStatus(tweet)).thenReturn(statusFixture);
@@ -101,6 +102,7 @@ public class TwitterServiceTest {
         String name = "Ben";
         String screenName = "BenLeethium";
         String profileImageURL = "ben.com";
+        String id = "0";
         Date date = new Date();
 
         // twitterInstance.getHomeTimeline() returns a ResponseList
@@ -128,7 +130,7 @@ public class TwitterServiceTest {
 
             // Construct twitterService's expected response
             parsedUser = new User(name, screenName, profileImageURL);
-            parsedStatus = new Status(tweet, date, 0, parsedUser);
+            parsedStatus = new Status(tweet, date, id, parsedUser);
 
             // save to list
             testStatuses.add(statusFixture);
