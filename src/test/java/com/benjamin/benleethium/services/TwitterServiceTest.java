@@ -80,7 +80,7 @@ public class TwitterServiceTest {
 
         // Construct the expected Status to be returned by TwitterService
         User parsedUser = new User(name, screenName, profileImageURL);
-        Status expectedResult = new Status(tweet, date, parsedUser);
+        Status expectedResult = new Status(tweet, date, 0, parsedUser);
 
         // Mock dependency's logic
         Mockito.when(twitterInstance.updateStatus(tweet)).thenReturn(statusFixture);
@@ -128,7 +128,7 @@ public class TwitterServiceTest {
 
             // Construct twitterService's expected response
             parsedUser = new User(name, screenName, profileImageURL);
-            parsedStatus = new Status(tweet, date, parsedUser);
+            parsedStatus = new Status(tweet, date, 0, parsedUser);
 
             // save to list
             testStatuses.add(statusFixture);

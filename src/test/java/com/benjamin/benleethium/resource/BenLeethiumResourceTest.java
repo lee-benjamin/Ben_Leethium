@@ -48,7 +48,7 @@ public class BenLeethiumResourceTest {
         for (String tweet : tweets) {
             // Construct twitterService's expected response
             parsedUser = new User(name, screenName, profileImageURL);
-            parsedStatus = new Status(tweet, date, parsedUser);
+            parsedStatus = new Status(tweet, date, 0, parsedUser);
 
             // save to list
             expectedResults.add(parsedStatus);
@@ -82,7 +82,7 @@ public class BenLeethiumResourceTest {
         Date date = new Date();
 
         User parsedUser = new User(name, screenName, profileImageURL);
-        Status parsedStatus = new Status(tweet, date, parsedUser);
+        Status parsedStatus = new Status(tweet, date, 0, parsedUser);
 
         // mock Response from REST endpoint
         Mockito.when(twitterService.updateStatus(tweet)).thenReturn(parsedStatus);
@@ -127,7 +127,7 @@ public class BenLeethiumResourceTest {
         for (String tweet : tweets) {
             // Construct twitterService's expected response
             parsedUser = new User(name, screenName, profileImageURL);
-            parsedStatus = new Status(tweet, date, parsedUser);
+            parsedStatus = new Status(tweet, date, 0, parsedUser);
 
             // save to list
             expectedResults.add(parsedStatus);

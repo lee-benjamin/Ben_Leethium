@@ -7,13 +7,15 @@ public class Status {
 
     private String text;
     private Date createdAt;
+    private long id;
     private User user;
 
     public Status() {}
 
-    public Status(String text, Date createdAt, User user) {
+    public Status(String text, Date createdAt, long id, User user) {
         this.text = text;
         this.createdAt = createdAt;
+        this.id = id;
         this.user = user;
     }
 
@@ -21,6 +23,7 @@ public class Status {
         this.text = status.getText();
         this.createdAt = status.getCreatedAt();
         this.setUser(status.getUser());
+        this.id = status.getId();
     }
 
     public String getText() {
@@ -37,6 +40,14 @@ public class Status {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public User getUser() {

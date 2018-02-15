@@ -30,7 +30,7 @@ public class StatusTest {
         String text = "test";
         Date createdAt = new Date();
         User user = new User();
-        status = new Status(text, createdAt, user);
+        status = new Status(text, createdAt, 0, user);
 
         assertEquals(text, status.getText());
         assertEquals(createdAt, status.getCreatedAt());
@@ -45,7 +45,7 @@ public class StatusTest {
     }
 
     @Test
-    public void setCreatedAt() {
+    public void testSetCreatedAt() {
         status.setCreatedAt(null);
         assertNull(status.getCreatedAt());
 
@@ -55,13 +55,20 @@ public class StatusTest {
     }
 
     @Test
+    public void testSetId() {
+        long id = 5;
+        status.setId(id);
+        assertEquals(id,status.getId());
+    }
+
+    @Test
     public void testEquals() {
         String text = "test";
         Date date = new Date();
         User user = new User();
 
-        status = new Status(text, date, user);
-        Status otherStatus = new Status(text, date, user);
+        status = new Status(text, date, 0, user);
+        Status otherStatus = new Status(text, date, 0, user);
         assertEquals(status, otherStatus);
     }
 
@@ -76,16 +83,16 @@ public class StatusTest {
         assertNotEquals(status, null);
         assertNotEquals(status, new User());
 
-        status = new Status(text, date, user);
+        status = new Status(text, date, 0, user);
         assertEquals(status,status);
-        Status otherStatus = new Status("diff text", date, user);
+        Status otherStatus = new Status("diff text", date, 0, user);
         assertNotEquals(status, otherStatus);
 
         otherStatus.setText(text);
         otherStatus.setCreatedAt(new Date(1,1,1));
         assertNotEquals(status, otherStatus);
 
-        otherStatus = new Status(text, date, new User());
+        otherStatus = new Status(text, date, 0, new User());
         assertNotEquals(status, otherStatus);
     }
 
@@ -95,8 +102,8 @@ public class StatusTest {
         Date date = new Date();
         User user = new User();
 
-        status = new Status(text, date, user);
-        Status otherStatus = new Status(text, date, user);
+        status = new Status(text, date, 0, user);
+        Status otherStatus = new Status(text, date, 0, user);
 
         assertTrue(otherStatus.equals(status)); // reverse is tested in testEquals
         assertTrue(status.hashCode() == otherStatus.hashCode());
