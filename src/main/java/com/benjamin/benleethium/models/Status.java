@@ -7,19 +7,22 @@ public class Status {
 
     private String text;
     private Date createdAt;
+    private String id;
     private User user;
 
     public Status() {}
 
-    public Status(String text, Date createdAt, User user) {
+    public Status(String text, Date createdAt, String id, User user) {
         this.text = text;
         this.createdAt = createdAt;
+        this.id = id;
         this.user = user;
     }
 
     public Status(twitter4j.Status status) {
         this.text = status.getText();
         this.createdAt = status.getCreatedAt();
+        this.id = String.valueOf(status.getId());
         this.setUser(status.getUser());
     }
 
@@ -37,6 +40,14 @@ public class Status {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public User getUser() {
