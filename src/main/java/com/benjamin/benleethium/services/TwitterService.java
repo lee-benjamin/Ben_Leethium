@@ -70,7 +70,7 @@ public class TwitterService {
         String id = "968228854388183041";
         User user = new User("Benjamin Lee", "Ben_Leethium", "http://pbs.twimg.com/profile_images/956243766146252800/rZY43NJM_normal.jpg");
         for (int i=0;i<15;i++) {
-            statuses.add(new Status(body, new Date(), id, user));
+            statuses.add(new Status(body, new Date(), id + i, user));
         }
         return statuses;
     }
