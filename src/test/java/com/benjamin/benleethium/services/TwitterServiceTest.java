@@ -98,10 +98,10 @@ public class TwitterServiceTest {
         twitterService.updateStatus(badTweet);
     }
 
-    @Test
-    public void testGetHomeTimelineDebug() throws TwitterException {
-        conf = mock(BenLeethiumConfiguration);
-    }
+//    @Test
+//    public void testGetHomeTimelineDebug() throws TwitterException {
+//        conf = mock(BenLeethiumConfiguration);
+//    }
 
     public void testGetHomeTimeline() throws TwitterException {
         String[] tweets = {"This is a test.", "Tweeting my cares away.","A tweet a day doth a healthy bird make."};

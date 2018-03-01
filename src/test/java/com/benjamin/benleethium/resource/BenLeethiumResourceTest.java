@@ -32,6 +32,49 @@ public class BenLeethiumResourceTest {
     }
 
     @Test
+    public void testGetUserTimeline() throws TwitterException {
+        String[] tweets = {"This is a test.", "Tweeting my cares away.","A tweet a day doth a healthy bird make."};
+        String name = "Ben";
+        String screenName = "BenLeethium";
+        String profileImageURL = "ben.com";
+        String id = "0";
+        Date date = new Date();
+
+        // TwitterService.getHomeTimeline() returns a List<Status>
+        List<Status> expectedResults = new ArrayList<>();
+
+        User parsedUser; // stripped version of a twitter4j.User
+        Status parsedStatus; // stripped version of a twitter4j.Status
+
+        for (String tweet : tweets) {
+            // Construct twitterService's expected response
+            parsedUser = new User(name, screenName, profileImageURL);
+            parsedStatus = new Status(tweet, date, id, parsedUser);
+
+            // save to list
+            expectedResults.add(parsedStatus);
+        }
+        // mock Response from REST endpoint
+        Mockito.when(twitterService.getUserTimeline()).thenReturn(expectedResults);
+        Response response = benLeethiumResource.getUserTimeline();
+
+        // verify Response values match Status values
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        List<Status> statuses = (List<Status>) response.getEntity();
+        for (int i=0; i<tweets.length; i++) {
+            assertEquals(tweets[i], statuses.get(i).getText());
+        }
+    }
+
+    @Test
+    public void testGetUserTimelineException() throws TwitterException {
+        Mockito.when(twitterService.getUserTimeline()).thenThrow(TwitterException.class);
+        Response response = benLeethiumResource.getUserTimeline();
+
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
+    }
+
+    @Test
     public void testGetHomeTimeline() throws TwitterException {
         String[] tweets = {"This is a test.", "Tweeting my cares away.","A tweet a day doth a healthy bird make."};
         String name = "Ben";
