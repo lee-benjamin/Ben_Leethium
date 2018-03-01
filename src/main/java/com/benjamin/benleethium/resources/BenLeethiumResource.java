@@ -37,7 +37,23 @@ public class BenLeethiumResource {
     }
 
     @GET
-    @Path("/timeline")
+    @Path("/timeline/user")
+    @Timed
+    public Response getUserTimeline() {
+        try {
+            List<Status> userTimelineTweets = twitterService.getUserTimeline();
+            logger.debug("Got user timeline.");
+            return Response.ok(userTimelineTweets).build();
+        } catch (TwitterException e) {
+            logger.error("Unable to fetch user timeline.", e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity(new ErrorResponse("An error has occurred. Please try again later."))
+                .build();
+        }
+    }
+
+    @GET
+    @Path("/timeline/home")
     @Timed
     public Response getHomeTimeline() {
         try {

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.benjamin.benleethium.BenLeethiumConfiguration;
 import com.benjamin.benleethium.models.Status;
 import com.benjamin.benleethium.models.User;
 import com.benjamin.benleethium.models.StatusFixture;
@@ -28,6 +29,7 @@ public class TwitterServiceTest {
 
     private Twitter twitterInstance;
     private TwitterService twitterService;
+    private BenLeethiumConfiguration conf;
 
     @Before
     public void setUp() {
@@ -97,6 +99,10 @@ public class TwitterServiceTest {
     }
 
     @Test
+    public void testGetHomeTimelineDebug() throws TwitterException {
+        conf = mock(BenLeethiumConfiguration);
+    }
+
     public void testGetHomeTimeline() throws TwitterException {
         String[] tweets = {"This is a test.", "Tweeting my cares away.","A tweet a day doth a healthy bird make."};
         String name = "Ben";
