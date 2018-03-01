@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 
 public class BenLeethiumConfiguration extends Configuration {
 
+    public boolean isMockData;
+
     @Valid
     @NotNull
     private Twitter4jConfiguration twitter4jConfiguration = new Twitter4jConfiguration();
@@ -15,4 +17,11 @@ public class BenLeethiumConfiguration extends Configuration {
         return twitter4jConfiguration;
     }
 
+    void setIsMockData(boolean isMockData) {
+        this.isMockData = isMockData;
+    }
+
+    public boolean getIsMockData() {
+        return this.isMockData;
+    }
 }

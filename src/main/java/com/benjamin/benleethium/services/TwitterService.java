@@ -2,6 +2,7 @@ package com.benjamin.benleethium.services;
 
 import com.benjamin.benleethium.models.Status;
 import com.benjamin.benleethium.models.User;
+import com.benjamin.benleethium.BenLeethiumApplication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ import javax.inject.Inject;
 
 public class TwitterService {
 
-    private static final boolean DEBUG = true;
+    private static final boolean isMockData = BenLeethiumApplication.isMockData;
     public static final int MAX_CHAR_LIMIT = 280;
     private final Logger logger = LoggerFactory.getLogger(TwitterService.class);
     private Twitter twitterInstance;
@@ -48,7 +49,7 @@ public class TwitterService {
     }
 
     public List<Status> getHomeTimeline() throws TwitterException {
-        if (DEBUG) return generateMockedData();
+        if (isMockData) return generateMockedData();
 
         logger.debug("Retrieving home timeline...");
         return twitterInstance.getHomeTimeline().stream()

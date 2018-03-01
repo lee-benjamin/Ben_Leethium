@@ -18,6 +18,7 @@ import java.util.EnumSet;
 public class BenLeethiumApplication extends Application<BenLeethiumConfiguration> {
 
     final Logger logger = LoggerFactory.getLogger(BenLeethiumApplication.class);
+    public static boolean isMockData;
 
     public static void main(String[] args) throws Exception {
         new BenLeethiumApplication().run(args);
@@ -31,6 +32,8 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
     @Override
     public void run(BenLeethiumConfiguration configuration,
                     Environment environment) {
+        isMockData = configuration.getIsMockData();
+
         // Allow Cross Origin Resource Sharing
         configureCors(environment);
 
