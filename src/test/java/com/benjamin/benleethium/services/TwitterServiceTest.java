@@ -7,6 +7,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.benjamin.benleethium.BenLeethiumConfiguration;
 import com.benjamin.benleethium.models.Status;
 import com.benjamin.benleethium.models.User;
 import com.benjamin.benleethium.models.StatusFixture;
@@ -28,6 +29,7 @@ public class TwitterServiceTest {
 
     private Twitter twitterInstance;
     private TwitterService twitterService;
+    private BenLeethiumConfiguration conf;
 
     @Before
     public void setUp() {
@@ -94,6 +96,55 @@ public class TwitterServiceTest {
     public void testUpdateStatusMalformed() throws TwitterException {
         String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
         twitterService.updateStatus(badTweet);
+    }
+
+    @Test
+    public void testGetUserTimeline() throws TwitterException {
+        String[] tweets = {"This is a test.", "Tweeting my cares away.","A tweet a day doth a healthy bird make."};
+        String name = "Ben";
+        String screenName = "BenLeethium";
+        String profileImageURL = "ben.com";
+        String id = "0";
+        Date date = new Date();
+
+        // twitterInstance.getUserTimeline() returns a ResponseList
+        ResponseList<twitter4j.Status> testStatuses = new ResponseListFixture<>();
+        // TwitterService.getUserTimeline() returns a List<Status>
+        List<Status> expectedResults = new ArrayList<>();
+
+        StatusFixture statusFixture;
+        UserFixture userFixture;
+        User parsedUser; // stripped version of a twitter4j.User
+        Status parsedStatus; // stripped version of a twitter4j.Status
+
+        // Construct the list of twitter4j.Statuses to be mocked
+        for (String tweet : tweets) {
+            statusFixture = new StatusFixture();
+            userFixture = new UserFixture();
+
+            // Construct twitter4j's response
+            userFixture.setName(name);
+            userFixture.setScreenName(screenName);
+            userFixture.setProfileImageURL(profileImageURL);
+            statusFixture.setText(tweet);
+            statusFixture.setCreatedAt(date);
+            statusFixture.setUser(userFixture);
+
+            // Construct twitterService's expected response
+            parsedUser = new User(name, screenName, profileImageURL);
+            parsedStatus = new Status(tweet, date, id, parsedUser);
+
+            // save to list
+            testStatuses.add(statusFixture);
+            expectedResults.add(parsedStatus);
+        }
+        // Mock dependency's logic
+        Mockito.when(twitterInstance.getUserTimeline()).thenReturn(testStatuses);
+
+        // Verify values
+        for (int i=0; i<tweets.length; i++) {
+            assertEquals(expectedResults.get(i), twitterService.getUserTimeline().get(i));
+        }
     }
 
     @Test

@@ -48,6 +48,15 @@ public class TwitterService {
         throw new RuntimeException("Tweet body is malformed. Update status aborted.");
     }
 
+    public List<Status> getUserTimeline() throws TwitterException {
+        if (isMockData) return generateMockedData();
+
+        logger.debug("Retrieving user timeline...");
+        return twitterInstance.getUserTimeline().stream()
+                                                .map(s -> new Status(s))
+                                                .collect(Collectors.toList());
+    }
+
     public List<Status> getHomeTimeline() throws TwitterException {
         if (isMockData) return generateMockedData();
 
