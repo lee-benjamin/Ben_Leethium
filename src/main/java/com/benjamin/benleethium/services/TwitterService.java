@@ -77,10 +77,16 @@ public class TwitterService {
     public static List<Status> generateMockedData() {
         List<Status> statuses = new ArrayList<>();
         String body = "Do not panic, this is only a test.";
+        String longBody = "PSA: the half-off burgers from #Sonic only apply to the cheapest burger... AND ends up being MORE EXPENSIVE because… https://t.co/NkVNHFfMv7";
         String id = "968228854388183041";
         User user = new User("Benjamin Lee", "Ben_Leethium", "http://pbs.twimg.com/profile_images/956243766146252800/rZY43NJM_normal.jpg");
         for (int i=0;i<15;i++) {
-            statuses.add(new Status(body, new Date(), id + i, user));
+            statuses.add(new Status(
+                                (i % 2 == 0 ? body : longBody),
+                                new Date(),
+                                id + i,
+                                user
+                            ));
         }
         return statuses;
     }

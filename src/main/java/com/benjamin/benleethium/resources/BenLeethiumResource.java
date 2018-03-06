@@ -100,7 +100,7 @@ public class BenLeethiumResource {
             logger.debug("Search returned.");
             return Response.ok(searchResults).build();
         } catch (TwitterException e) {
-           logger.error("Unable to search for query " + keyword + ".");
+           logger.error("Unable to search for query " + keyword + ".", e);
           return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
               .entity(new ErrorResponse("An error has occurred. Please try again later."))
               .build();
