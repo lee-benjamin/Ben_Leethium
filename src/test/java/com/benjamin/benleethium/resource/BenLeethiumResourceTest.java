@@ -1,7 +1,10 @@
 package com.benjamin.benleethium.resource;
 
+import com.benjamin.benleethium.models.Tweet;
 import com.benjamin.benleethium.resources.BenLeethiumResource;
 import com.benjamin.benleethium.services.TwitterService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.benjamin.benleethium.models.Status;
 import com.benjamin.benleethium.models.User;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +35,12 @@ public class BenLeethiumResourceTest {
         benLeethiumResource = new BenLeethiumResource(twitterService);
     }
 
+    public static String stringToJSON(String message) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Tweet tweet = new Tweet();
+        tweet.setMessage(message);
+        return mapper.writeValueAsString(tweet);
+    }
     @Test
     public void testGetUserTimeline() throws TwitterException {
         String[] tweets = {"This is a test.", "Tweeting my cares away.","A tweet a day doth a healthy bird make."};
@@ -118,8 +128,8 @@ public class BenLeethiumResourceTest {
     }
 
     @Test
-    public void testUpdateStatus() throws TwitterException {
-        String tweet = "A tweet a day doth a healthy bird make.";
+    public void testUpdateStatus() throws TwitterException, IOException {
+        String message = "A tweet a day doth a healthy bird make.";
         String name = "Ben";
         String screenName = "BenLeethium";
         String profileImageURL = "ben.com";
@@ -127,31 +137,32 @@ public class BenLeethiumResourceTest {
         Date date = new Date();
 
         User parsedUser = new User(name, screenName, profileImageURL);
-        Status parsedStatus = new Status(tweet, date, id, parsedUser);
+        Status parsedStatus = new Status(message, date, id, parsedUser);
 
         // mock Response from REST endpoint
-        Mockito.when(twitterService.updateStatus(tweet)).thenReturn(parsedStatus);
-        Response response = benLeethiumResource.updateStatus(tweet);
+        Mockito.when(twitterService.updateStatus(message)).thenReturn(parsedStatus);
+        Response response = benLeethiumResource.updateStatus(stringToJSON(message));
 
         // verify Response values match Status values
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertEquals(tweet, ((Status) response.getEntity()).getText());
+        assertEquals(message, ((Status) response.getEntity()).getText());
     }
 
     @Test
-    public void testUpdateStatusException() throws TwitterException {
-        String tweet = "tweet";
-        Mockito.when(twitterService.updateStatus(tweet)).thenThrow(TwitterException.class);
-        Response response = benLeethiumResource.updateStatus(tweet);
+    public void testUpdateStatusException() throws TwitterException, IOException {
+        String message = "tweet";
+
+        Mockito.when(twitterService.updateStatus(message)).thenThrow(TwitterException.class);
+        Response response = benLeethiumResource.updateStatus(stringToJSON(message));
 
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
     }
 
     @Test
-    public void testUpdateStatusMalformed() throws TwitterException {
+    public void testUpdateStatusMalformed() throws TwitterException, IOException {
         String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
         Mockito.when(twitterService.updateStatus(badTweet)).thenThrow(RuntimeException.class);
-        Response response = benLeethiumResource.updateStatus(badTweet);
+        Response response = benLeethiumResource.updateStatus(stringToJSON(badTweet));
         assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     }
 
