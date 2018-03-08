@@ -55,9 +55,9 @@ public class BenLeethiumApplication extends Application<BenLeethiumConfiguration
         final FilterRegistration.Dynamic cors =
             environment.servlets().addFilter("CORSFilter", CrossOriginFilter.class);
 
-        cors.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "http://localhost:9000");
         cors.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "X-Requested-With,Content-Type,Accept,Origin,Authorization");
-        cors.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET");
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET, POST");
         cors.setInitParameter(CrossOriginFilter.ALLOW_CREDENTIALS_PARAM, "true");
 
         // Add URL mapping

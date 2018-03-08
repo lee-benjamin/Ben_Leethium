@@ -11,8 +11,13 @@ twitter4jConfiguration:
     consumerSecret: **********************************
     accessToken: **********************************
     accessTokenSecret: **********************************
+
+isMockData: [true|false]
 ```
-You can find these values in the settings page of your Twitter Application.
+
+`isMockData` allows you to send mock data without hitting the real Twitter API, thus saving you from exceeding your Twitter API rate limit.
+
+You can find the values for the configuration in the settings page of your Twitter Application.
 
 ## Running with Maven
 
