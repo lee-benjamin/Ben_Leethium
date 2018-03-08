@@ -3,3 +3,5 @@ twitter4jConfiguration:
     consumerSecret: **********************************
     accessToken: **********************************
     accessTokenSecret: **********************************
+
+isMockData: false
