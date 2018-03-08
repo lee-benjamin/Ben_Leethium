@@ -1,7 +1,13 @@
 package com.benjamin.benleethium.models;
 
-public class Tweet {
+public class UpdateStatusRequest {
     public String message;
+
+    public UpdateStatusRequest() {}
+
+    public UpdateStatusRequest(String message) {
+        this.message = message;
+    }
 
     public String getMessage() {
         return message;

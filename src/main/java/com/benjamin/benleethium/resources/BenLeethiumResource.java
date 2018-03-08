@@ -1,12 +1,11 @@
 package com.benjamin.benleethium.resources;
 
 import com.benjamin.benleethium.models.Status;
-import com.benjamin.benleethium.models.Tweet;
+import com.benjamin.benleethium.models.UpdateStatusRequest;
 import com.benjamin.benleethium.api.ErrorResponse;
 import com.benjamin.benleethium.services.TwitterService;
 import com.codahale.metrics.annotation.Timed;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,10 +73,9 @@ public class BenLeethiumResource {
     @Path("/tweet")
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
-    public Response updateStatus(String message) throws IOException {
-        Tweet tweet = new ObjectMapper().readValue(message, Tweet.class);
+    public Response updateStatus(UpdateStatusRequest updateStatusRequest) throws IOException {
         try {
-            Status status = twitterService.updateStatus(tweet.getMessage());
+            Status status = twitterService.updateStatus(updateStatusRequest.getMessage());
             logger.debug("Successfully posted tweet.");
             return Response.ok(status).build();
         } catch (TwitterException|NoSuchElementException e) {

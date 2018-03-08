@@ -1,6 +1,6 @@
 package com.benjamin.benleethium.resource;
 
-import com.benjamin.benleethium.models.Tweet;
+import com.benjamin.benleethium.models.UpdateStatusRequest;
 import com.benjamin.benleethium.resources.BenLeethiumResource;
 import com.benjamin.benleethium.services.TwitterService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,12 +35,6 @@ public class BenLeethiumResourceTest {
         benLeethiumResource = new BenLeethiumResource(twitterService);
     }
 
-    public static String stringToJSON(String message) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        Tweet tweet = new Tweet();
-        tweet.setMessage(message);
-        return mapper.writeValueAsString(tweet);
-    }
     @Test
     public void testGetUserTimeline() throws TwitterException {
         String[] tweets = {"This is a test.", "Tweeting my cares away.","A tweet a day doth a healthy bird make."};
@@ -141,7 +135,7 @@ public class BenLeethiumResourceTest {
 
         // mock Response from REST endpoint
         Mockito.when(twitterService.updateStatus(message)).thenReturn(parsedStatus);
-        Response response = benLeethiumResource.updateStatus(stringToJSON(message));
+        Response response = benLeethiumResource.updateStatus(new UpdateStatusRequest(message));
 
         // verify Response values match Status values
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -153,7 +147,7 @@ public class BenLeethiumResourceTest {
         String message = "tweet";
 
         Mockito.when(twitterService.updateStatus(message)).thenThrow(TwitterException.class);
-        Response response = benLeethiumResource.updateStatus(stringToJSON(message));
+        Response response = benLeethiumResource.updateStatus(new UpdateStatusRequest(message));
 
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
     }
@@ -162,7 +156,7 @@ public class BenLeethiumResourceTest {
     public void testUpdateStatusMalformed() throws TwitterException, IOException {
         String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
         Mockito.when(twitterService.updateStatus(badTweet)).thenThrow(RuntimeException.class);
-        Response response = benLeethiumResource.updateStatus(stringToJSON(badTweet));
+        Response response = benLeethiumResource.updateStatus(new UpdateStatusRequest(badTweet));
         assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     }
 
