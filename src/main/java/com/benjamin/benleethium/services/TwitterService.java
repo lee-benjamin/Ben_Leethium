@@ -51,8 +51,8 @@ public class TwitterService {
 
     public Status updateStatus(String tweet) throws TwitterException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
-        StatusUpdate statusUpdate = new StatusUpdate(tweet);
         if (this.validateTweet(tweet)) {
+            StatusUpdate statusUpdate = new StatusUpdate(tweet);
             logger.debug("Tweet valid. Posting tweet...");
             return this.updateStatusHelper(statusUpdate);
         }
