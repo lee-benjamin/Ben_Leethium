@@ -71,6 +71,41 @@ public class TwitterServiceTest {
     }
 
     @Test
+    public void testReplyToStatus() throws TwitterException {
+        String tweet = "This is a test.";
+        String name = "Ben";
+        String screenName = "BenLeethium";
+        String profileImageURL = "ben.com";
+        String id = "0";
+        long replyId = 1;
+        Date date = new Date();
+
+        // Construct the twitter4j.Status to be mocked
+        StatusFixture statusFixture = new StatusFixture();
+        UserFixture userFixture = new UserFixture();
+
+        userFixture.setName(name);
+        userFixture.setScreenName(screenName);
+        userFixture.setProfileImageURL(profileImageURL);
+        statusFixture.setText(tweet);
+        statusFixture.setCreatedAt(date);
+        statusFixture.setUser(userFixture);
+
+        // Construct the expected Status to be returned by TwitterService
+        User parsedUser = new User(name, screenName, profileImageURL);
+        Status expectedResult = new Status(tweet, date, id, parsedUser);
+
+        // Mock dependency's logic
+        StatusUpdate statusUpdate = new StatusUpdate(tweet);
+        statusUpdate.setInReplyToStatusId(replyId);
+        Mockito.when(twitterInstance.updateStatus(statusUpdate)).thenReturn(statusFixture);
+
+        // Verify values
+        assertEquals(expectedResult, twitterService.replyToStatus(replyId, tweet));
+    }
+
+
+    @Test
     public void testUpdateStatus() throws TwitterException {
         String tweet = "This is a test.";
         String name = "Ben";
