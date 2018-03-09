@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.any;
 
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
@@ -150,7 +151,7 @@ public class TwitterServiceTest {
         Status expectedResult = new Status(tweet, date, id, parsedUser);
 
         // Mock dependency's logic
-        Mockito.when(twitterInstance.updateStatus(tweet)).thenReturn(statusFixture);
+        Mockito.when(twitterInstance.updateStatus(any(StatusUpdate.class))).thenReturn(statusFixture);
 
         // Verify values
         assertEquals(expectedResult, twitterService.updateStatus(tweet));

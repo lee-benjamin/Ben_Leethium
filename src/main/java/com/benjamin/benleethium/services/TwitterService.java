@@ -37,40 +37,38 @@ public class TwitterService {
     }
 
     public boolean validateStatusUpdate(StatusUpdate statusUpdate) {
-        return (statusUpdate.getInReplyToStatusId() > 0
+        return ( statusUpdate.getInReplyToStatusId() > 0
                 && statusUpdate.getStatus().length() <= MAX_CHAR_LIMIT
                 );
     }
 
-//    private Status updateStatusHelper(StatusUpdate statusUpdate) {
-//
-//    }
+    private Status updateStatusHelper(StatusUpdate statusUpdate) throws TwitterException, RuntimeException {
+            return Stream.of(twitterInstance.updateStatus(statusUpdate))
+                                        .findFirst()
+                                        .map(s -> new Status(s))
+                                        .orElseThrow(NoSuchElementException::new);
+    }
 
     public Status updateStatus(String tweet) throws TwitterException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
+        StatusUpdate statusUpdate = new StatusUpdate(tweet);
         if (this.validateTweet(tweet)) {
             logger.debug("Tweet valid. Posting tweet...");
-            return Stream.of(twitterInstance.updateStatus(tweet))
-                                        .findFirst()
-                                        .map(s -> new Status(s))
-                                        .orElseThrow(NoSuchElementException::new);
+            return this.updateStatusHelper(statusUpdate);
         }
         logger.debug("Tweet NOT validated, malformed tweet body.");
         throw new RuntimeException("Tweet body is malformed. Update status aborted.");
-    }
+   }
 
     public Status replyToStatus(String inReplyToStatusId, String tweet) throws TwitterException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
-        StatusUpdate status = new StatusUpdate(tweet);
-        status.setInReplyToStatusId(Long.parseLong(inReplyToStatusId));
-        if (this.validateStatusUpdate(status)) {
+        StatusUpdate statusUpdate = new StatusUpdate(tweet);
+        statusUpdate.setInReplyToStatusId(Long.parseLong(inReplyToStatusId));
+        if (this.validateStatusUpdate(statusUpdate)) {
             logger.debug("Tweet valid. Posting tweet...");
-            return Stream.of(twitterInstance.updateStatus(status))
-                                        .findFirst()
-                                        .map(s -> new Status(s))
-                                        .orElseThrow(NoSuchElementException::new);
+            return this.updateStatusHelper(statusUpdate);
         }
-        logger.debug("Tweet NOT validated, malformed tweet body.");
+        logger.debug("Tweet NOT validated, malformed tweet body or reply ID.");
         throw new RuntimeException("Tweet body is malformed. Update status aborted.");
     }
 
