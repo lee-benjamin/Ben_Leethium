@@ -1,7 +1,9 @@
 package com.benjamin.benleethium.models;
 
 public class UpdateStatusRequest {
-    public String message;
+    private String message;
+    private long id;
+
 
     public UpdateStatusRequest() {}
 
@@ -15,5 +17,13 @@ public class UpdateStatusRequest {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void setInReplyToStatusId(long id) {
+        this.id = id;
+    }
+
+    public long getInReplyToStatusId() {
+        return this.id;
     }
 }

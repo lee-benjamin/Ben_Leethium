@@ -69,6 +69,28 @@ public class BenLeethiumResource {
         }
     }
 
+//    @POST
+//    @Path("/tweet")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Timed
+//    public Response replyToStatus(UpdateStatusRequest updateStatusRequest) throws IOException {
+//        try {
+//            Status status = twitterService.updateStatus(updateStatusRequest.getMessage());
+//            logger.debug("Successfully posted tweet.");
+//            return Response.ok(status).build();
+//        } catch (TwitterException|NoSuchElementException e) {
+//            logger.error("Unable to post the tweet.", e);
+//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+//                .entity(new ErrorResponse("An error has occurred. Please try again later."))
+//                .build();
+//        } catch (RuntimeException e) {
+//            logger.debug(e.getMessage());
+//            return Response.status(Response.Status.BAD_REQUEST)
+//                 .entity(new ErrorResponse("Malformed tweet. Ensure your tweet isn't empty or exceeds " + TwitterService.MAX_CHAR_LIMIT + " characters"))
+//                 .build();
+//        }
+//    }
+
     @POST
     @Path("/tweet")
     @Consumes(MediaType.APPLICATION_JSON)
