@@ -7,6 +7,7 @@ import com.benjamin.benleethium.BenLeethiumApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
@@ -35,11 +36,33 @@ public class TwitterService {
         return (tweet != null && tweet.length() <= MAX_CHAR_LIMIT);
     }
 
+    public boolean validateTweet(StatusUpdate statusUpdate) {
+        return (statusUpdate.getInReplyToStatusId() != 0
+                && statusUpdate.getStatus() != null
+                && statusUpdate.getStatus().length() <= MAX_CHAR_LIMIT
+                );
+    }
+
     public Status updateStatus(String tweet) throws TwitterException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
         if (this.validateTweet(tweet)) {
             logger.debug("Tweet valid. Posting tweet...");
             return Stream.of(twitterInstance.updateStatus(tweet))
+                                        .findFirst()
+                                        .map(s -> new Status(s))
+                                        .orElseThrow(NoSuchElementException::new);
+        }
+        logger.debug("Tweet NOT validated, malformed tweet body.");
+        throw new RuntimeException("Tweet body is malformed. Update status aborted.");
+    }
+
+    public Status replyToStatus(long inReplyToStatusId, String tweet) throws TwitterException, RuntimeException {
+        logger.debug("Validating tweet before attempting to post.");
+        StatusUpdate status = new StatusUpdate(tweet);
+        status.setInReplyToStatusId(inReplyToStatusId);
+        if (this.validateTweet(status)) {
+            logger.debug("Tweet valid. Posting tweet...");
+            return Stream.of(twitterInstance.updateStatus(status))
                                         .findFirst()
                                         .map(s -> new Status(s))
                                         .orElseThrow(NoSuchElementException::new);
