@@ -21,6 +21,7 @@ import java.util.List;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.ResponseList;
@@ -45,9 +46,17 @@ public class TwitterServiceTest {
     }
 
     @Test
+    public void testValidateTweetEmptyId() {
+        StatusUpdate status = new StatusUpdate("");
+        assertFalse("Testing null reply ID.",
+            twitterService.validateTweet(status));
+    }
+
+    @Test
     public void testValidateTweetNull() {
+        String message = null;
         assertFalse("Testing null tweet.",
-            twitterService.validateTweet(null));
+            twitterService.validateTweet(message));
     }
 
     @Test

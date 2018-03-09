@@ -2,7 +2,7 @@ package com.benjamin.benleethium.models;
 
 public class UpdateStatusRequest {
     private String message;
-    private long id;
+    private long inReplyToStatusId;
 
 
     public UpdateStatusRequest() {}
@@ -10,6 +10,12 @@ public class UpdateStatusRequest {
     public UpdateStatusRequest(String message) {
         this.message = message;
     }
+
+    public UpdateStatusRequest(long inReplyToStatusId, String message) {
+        this.inReplyToStatusId = inReplyToStatusId;
+        this.message = message;
+    }
+
 
     public String getMessage() {
         return message;
@@ -19,11 +25,11 @@ public class UpdateStatusRequest {
         this.message = message;
     }
 
-    public void setInReplyToStatusId(long id) {
-        this.id = id;
+    public void setInReplyToStatusId(long inReplyToStatusId) {
+        this.inReplyToStatusId = inReplyToStatusId;
     }
 
     public long getInReplyToStatusId() {
-        return this.id;
+        return this.inReplyToStatusId;
     }
 }

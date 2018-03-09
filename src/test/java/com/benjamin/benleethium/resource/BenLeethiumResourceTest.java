@@ -122,6 +122,46 @@ public class BenLeethiumResourceTest {
     }
 
     @Test
+    public void testReplyToStatus() throws TwitterException, IOException {
+        String message = "A tweet a day doth a healthy bird make.";
+        String name = "Ben";
+        String screenName = "BenLeethium";
+        String profileImageURL = "ben.com";
+        String id = "0";
+        long replyId = 1l;
+        Date date = new Date();
+
+        User parsedUser = new User(name, screenName, profileImageURL);
+        Status parsedStatus = new Status(message, date, id, parsedUser);
+
+        // mock Response from REST endpoint
+        Mockito.when(twitterService.replyToStatus(replyId, message)).thenReturn(parsedStatus);
+        Response response = benLeethiumResource.replyToStatus(new UpdateStatusRequest(replyId, message));
+
+        // verify Response values match Status values
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        assertEquals(message, ((Status) response.getEntity()).getText());
+    }
+
+//   @Test
+//   public void testUpdateStatusException() throws TwitterException, IOException {
+//       String message = "tweet";
+//
+//       Mockito.when(twitterService.updateStatus(message)).thenThrow(TwitterException.class);
+//       Response response = benLeethiumResource.updateStatus(new UpdateStatusRequest(message));
+//
+//       assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
+//   }
+//
+//   @Test
+//   public void testUpdateStatusMalformed() throws TwitterException, IOException {
+//       String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
+//       Mockito.when(twitterService.updateStatus(badTweet)).thenThrow(RuntimeException.class);
+//       Response response = benLeethiumResource.updateStatus(new UpdateStatusRequest(badTweet));
+//       assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+//   }
+
+    @Test
     public void testUpdateStatus() throws TwitterException, IOException {
         String message = "A tweet a day doth a healthy bird make.";
         String name = "Ben";

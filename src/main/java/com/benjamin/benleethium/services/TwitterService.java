@@ -37,7 +37,7 @@ public class TwitterService {
     }
 
     public boolean validateTweet(StatusUpdate statusUpdate) {
-        return (statusUpdate.getInReplyToStatusId() != 0
+        return (statusUpdate.getInReplyToStatusId() > 0
                 && statusUpdate.getStatus() != null
                 && statusUpdate.getStatus().length() <= MAX_CHAR_LIMIT
                 );
