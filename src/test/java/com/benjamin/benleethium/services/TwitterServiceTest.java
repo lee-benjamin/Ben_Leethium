@@ -46,31 +46,12 @@ public class TwitterServiceTest {
     }
 
     @Test
-    public void testValidateTweetStatusUpdateEmptyId() {
-        StatusUpdate status = new StatusUpdate("");
-        assertFalse("Testing null reply ID.",
-            twitterService.validateTweet(status));
-    }
-
-    @Test
     public void testValidateTweetNull() {
         String message = null;
         assertFalse("Testing null tweet.",
             twitterService.validateTweet(message));
     }
 
-    @Test
-    public void testValidateTweetStatusUpdate() {
-        String grandioseTweet = "North Korean Leader Kim Jong Un just stated that the "
-            + "“Nuclear Button is on his desk at all times.” Will someone from his "
-            + "depleted and food starved regime please inform him that I too have a "
-            + "Nuclear Button, but it is a much bigger & more powerful one than his,"
-            + " and my Button works!";
-        StatusUpdate statusUpdate = new StatusUpdate(grandioseTweet);
-        statusUpdate.setInReplyToStatusId(1L);
-        assertTrue("Testing a legal tweet of 280 characters.",
-            twitterService.validateTweet(statusUpdate));
-    }
 
     @Test
     public void testValidateTweet() {
@@ -81,6 +62,26 @@ public class TwitterServiceTest {
             + " and my Button works!";
         assertTrue("Testing a legal tweet of 280 characters.",
             twitterService.validateTweet(grandioseTweet));
+    }
+
+    @Test
+    public void testValidateStatusUpdate() {
+        String grandioseTweet = "North Korean Leader Kim Jong Un just stated that the "
+            + "“Nuclear Button is on his desk at all times.” Will someone from his "
+            + "depleted and food starved regime please inform him that I too have a "
+            + "Nuclear Button, but it is a much bigger & more powerful one than his,"
+            + " and my Button works!";
+        StatusUpdate statusUpdate = new StatusUpdate(grandioseTweet);
+        statusUpdate.setInReplyToStatusId(1L);
+        assertTrue("Testing a legal tweet of 280 characters.",
+            twitterService.validateStatusUpdate(statusUpdate));
+    }
+
+    @Test
+    public void testValidateStatusUpdateEmptyId() {
+        StatusUpdate status = new StatusUpdate("");
+        assertFalse("Testing null reply ID.",
+            twitterService.validateStatusUpdate(status));
     }
 
     @Test

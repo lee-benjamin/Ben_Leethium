@@ -36,11 +36,15 @@ public class TwitterService {
         return (tweet != null && tweet.length() <= MAX_CHAR_LIMIT);
     }
 
-    public boolean validateTweet(StatusUpdate statusUpdate) {
+    public boolean validateStatusUpdate(StatusUpdate statusUpdate) {
         return (statusUpdate.getInReplyToStatusId() > 0
                 && statusUpdate.getStatus().length() <= MAX_CHAR_LIMIT
                 );
     }
+
+//    private Status updateStatusHelper(StatusUpdate statusUpdate) {
+//
+//    }
 
     public Status updateStatus(String tweet) throws TwitterException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
@@ -59,7 +63,7 @@ public class TwitterService {
         logger.debug("Validating tweet before attempting to post.");
         StatusUpdate status = new StatusUpdate(tweet);
         status.setInReplyToStatusId(Long.parseLong(inReplyToStatusId));
-        if (this.validateTweet(status)) {
+        if (this.validateStatusUpdate(status)) {
             logger.debug("Tweet valid. Posting tweet...");
             return Stream.of(twitterInstance.updateStatus(status))
                                         .findFirst()
