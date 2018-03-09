@@ -128,7 +128,7 @@ public class BenLeethiumResourceTest {
         String screenName = "BenLeethium";
         String profileImageURL = "ben.com";
         String id = "0";
-        long replyId = 1;
+        String replyId = "1";
         Date date = new Date();
 
         User parsedUser = new User(name, screenName, profileImageURL);
@@ -146,7 +146,7 @@ public class BenLeethiumResourceTest {
    @Test
    public void testReplyToStatusException() throws TwitterException, IOException {
        String message = "tweet";
-       long replyId = 1;
+       String replyId = "1";
 
        Mockito.when(twitterService.replyToStatus(replyId, message)).thenThrow(TwitterException.class);
        Response response = benLeethiumResource.replyToStatus(new UpdateStatusRequest(replyId, message));
@@ -157,7 +157,7 @@ public class BenLeethiumResourceTest {
    @Test
    public void testReplyToStatusMalformed() throws TwitterException, IOException {
        String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
-       long replyId = 1;
+       String replyId = "1";
        Mockito.when(twitterService.replyToStatus(replyId, badTweet)).thenThrow(RuntimeException.class);
        Response response = benLeethiumResource.replyToStatus(new UpdateStatusRequest(replyId, badTweet));
        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());

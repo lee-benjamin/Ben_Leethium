@@ -67,7 +67,7 @@ public class TwitterServiceTest {
             + "Nuclear Button, but it is a much bigger & more powerful one than his,"
             + " and my Button works!";
         StatusUpdate statusUpdate = new StatusUpdate(grandioseTweet);
-        statusUpdate.setInReplyToStatusId(1);
+        statusUpdate.setInReplyToStatusId(1L);
         assertTrue("Testing a legal tweet of 280 characters.",
             twitterService.validateTweet(statusUpdate));
     }
@@ -90,7 +90,7 @@ public class TwitterServiceTest {
         String screenName = "BenLeethium";
         String profileImageURL = "ben.com";
         String id = "0";
-        long replyId = 1;
+        String replyId = "1";
         Date date = new Date();
 
         // Construct the twitter4j.Status to be mocked
@@ -110,7 +110,7 @@ public class TwitterServiceTest {
 
         // Mock dependency's logic
         StatusUpdate statusUpdate = new StatusUpdate(tweet);
-        statusUpdate.setInReplyToStatusId(replyId);
+        statusUpdate.setInReplyToStatusId(Long.parseLong(replyId));
         Mockito.when(twitterInstance.updateStatus(statusUpdate)).thenReturn(statusFixture);
 
         // Verify values
@@ -121,7 +121,7 @@ public class TwitterServiceTest {
     public void testReplyToStatusMalformed() throws TwitterException {
         String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
 
-        twitterService.replyToStatus(1, badTweet);
+        twitterService.replyToStatus("1", badTweet);
     }
 
     @Test

@@ -13,4 +13,12 @@ public class UpdateStatusRequestTest {
         updateStatusRequest.setMessage(message);
         assertEquals(message, updateStatusRequest.getMessage());
     }
+
+    @Test
+    public void testSetInReplyToStatusId() {
+        String id = "1";
+        UpdateStatusRequest updateStatusRequest = new UpdateStatusRequest();
+        updateStatusRequest.setInReplyToStatusId(id);
+        assertEquals(id, updateStatusRequest.getInReplyToStatusId());
+    }
 }

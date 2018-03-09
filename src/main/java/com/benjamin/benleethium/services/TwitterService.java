@@ -55,10 +55,10 @@ public class TwitterService {
         throw new RuntimeException("Tweet body is malformed. Update status aborted.");
     }
 
-    public Status replyToStatus(long inReplyToStatusId, String tweet) throws TwitterException, RuntimeException {
+    public Status replyToStatus(String inReplyToStatusId, String tweet) throws TwitterException, RuntimeException {
         logger.debug("Validating tweet before attempting to post.");
         StatusUpdate status = new StatusUpdate(tweet);
-        status.setInReplyToStatusId(inReplyToStatusId);
+        status.setInReplyToStatusId(Long.parseLong(inReplyToStatusId));
         if (this.validateTweet(status)) {
             logger.debug("Tweet valid. Posting tweet...");
             return Stream.of(twitterInstance.updateStatus(status))
