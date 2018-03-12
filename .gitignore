@@ -7,3 +7,4 @@ target
 dependency-reduced-pom.xml
 *.swp
 benleethium.yml
+debug.yml

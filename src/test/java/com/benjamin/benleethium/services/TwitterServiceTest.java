@@ -20,7 +20,9 @@ import java.util.List;
 
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.any;
 
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.ResponseList;
@@ -46,9 +48,11 @@ public class TwitterServiceTest {
 
     @Test
     public void testValidateTweetNull() {
+        String message = null;
         assertFalse("Testing null tweet.",
-            twitterService.validateTweet(null));
+            twitterService.validateTweet(message));
     }
+
 
     @Test
     public void testValidateTweet() {
@@ -59,6 +63,67 @@ public class TwitterServiceTest {
             + " and my Button works!";
         assertTrue("Testing a legal tweet of 280 characters.",
             twitterService.validateTweet(grandioseTweet));
+    }
+
+    @Test
+    public void testValidateStatusUpdate() {
+        String grandioseTweet = "North Korean Leader Kim Jong Un just stated that the "
+            + "“Nuclear Button is on his desk at all times.” Will someone from his "
+            + "depleted and food starved regime please inform him that I too have a "
+            + "Nuclear Button, but it is a much bigger & more powerful one than his,"
+            + " and my Button works!";
+        StatusUpdate statusUpdate = new StatusUpdate(grandioseTweet);
+        statusUpdate.setInReplyToStatusId(1L);
+        assertTrue("Testing a legal tweet of 280 characters.",
+            twitterService.validateStatusUpdate(statusUpdate));
+    }
+
+    @Test
+    public void testValidateStatusUpdateEmptyId() {
+        StatusUpdate status = new StatusUpdate("");
+        assertFalse("Testing null reply ID.",
+            twitterService.validateStatusUpdate(status));
+    }
+
+    @Test
+    public void testReplyToStatus() throws TwitterException {
+        String tweet = "This is a test.";
+        String name = "Ben";
+        String screenName = "BenLeethium";
+        String profileImageURL = "ben.com";
+        String id = "0";
+        String replyId = "1";
+        Date date = new Date();
+
+        // Construct the twitter4j.Status to be mocked
+        StatusFixture statusFixture = new StatusFixture();
+        UserFixture userFixture = new UserFixture();
+
+        userFixture.setName(name);
+        userFixture.setScreenName(screenName);
+        userFixture.setProfileImageURL(profileImageURL);
+        statusFixture.setText(tweet);
+        statusFixture.setCreatedAt(date);
+        statusFixture.setUser(userFixture);
+
+        // Construct the expected Status to be returned by TwitterService
+        User parsedUser = new User(name, screenName, profileImageURL);
+        Status expectedResult = new Status(tweet, date, id, parsedUser);
+
+        // Mock dependency's logic
+        StatusUpdate statusUpdate = new StatusUpdate(tweet);
+        statusUpdate.setInReplyToStatusId(Long.parseLong(replyId));
+        Mockito.when(twitterInstance.updateStatus(statusUpdate)).thenReturn(statusFixture);
+
+        // Verify values
+        assertEquals(expectedResult, twitterService.replyToStatus(replyId, tweet));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testReplyToStatusMalformed() throws TwitterException {
+        String badTweet = new String(new char[TwitterService.MAX_CHAR_LIMIT + 1]);
+
+        twitterService.replyToStatus("1", badTweet);
     }
 
     @Test
@@ -86,7 +151,7 @@ public class TwitterServiceTest {
         Status expectedResult = new Status(tweet, date, id, parsedUser);
 
         // Mock dependency's logic
-        Mockito.when(twitterInstance.updateStatus(tweet)).thenReturn(statusFixture);
+        Mockito.when(twitterInstance.updateStatus(any(StatusUpdate.class))).thenReturn(statusFixture);
 
         // Verify values
         assertEquals(expectedResult, twitterService.updateStatus(tweet));
